@@ -46,16 +46,36 @@ def prep(type = 'nightly') {
 
   if (env.TARGET_OS == 'ios') {
     /* install ruby dependencies */
-    nix.shell 'bundle install --gemfile=fastlane/Gemfile --quiet'
+    nix.shell '''
+      watchman watch-del-all && \
+      bundle install --gemfile=fastlane/Gemfile --quiet
+    '''
   }
 
-  def prepareTarget=env.TARGET_OS
   if (env.TARGET_OS == 'macos' || env.TARGET_OS == 'linux' || env.TARGET_OS == 'windows') {
-    prepareTarget='desktop'
+    /* node deps, pods, and status-go download */
+    utils.nix.shell('''
+      watchman watch-del-all && \
+      scripts/prepare-for-desktop-platform.sh
+    ''', pure: false)
+    sh('''
+      cp -R translations/ status-modules/translations/ && \
+      cp -R status-modules/ node_modules/status-modules/
+    ''')
+  } else {
+    // 1. remove all watchman watches
+    // 2. copy translations to node_modules
+    // 3. touch node_modules/.copied to avoid copying node_modules again during build
+    // run script in the nix shell so that node_modules gets instantiated before attempting the copies
+    utils.nix.shell('''
+      watchman watch-del-all && \
+      cp -R translations/ status-modules/translations/ && \
+      chmod u+w node_modules && \
+      cp -R status-modules/ node_modules/status-modules/ && \
+      touch -t 203812312359 node_modules/.copied && \
+      chmod u-w node_modules
+    ''')
   }
-  /* node deps, pods, and status-go download */
-  utils.nix.shell("scripts/prepare-for-platform.sh ${prepareTarget}", pure: false)
-  sh("cp -R translations status-modules/translations && cp -R status-modules node_modules/status-modules")
 }
 
 return this

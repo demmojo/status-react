@@ -4,7 +4,7 @@ utils = load 'ci/utils.groovy'
 def bundle() {
   def btype = utils.getBuildType()
   /* Disable Gradle Daemon https://stackoverflow.com/questions/38710327/jenkins-builds-fail-using-the-gradle-daemon */
-  def gradleOpt = "-PbuildUrl='${currentBuild.absoluteUrl}' -Dorg.gradle.daemon=false "
+  def gradleOpt = "-PbuildUrl='${currentBuild.absoluteUrl}' -Dorg.gradle.daemon=false --console plain "
   def target = "release"
   /* we don't need x86 for any builds except e2e */
   env.NDK_ABI_FILTERS="armeabi-v7a;arm64-v8a"
