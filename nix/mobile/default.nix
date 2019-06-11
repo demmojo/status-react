@@ -1,5 +1,5 @@
 { config, stdenv, pkgs, callPackage, fetchurl, target-os,
-  gradle, status-go, composeXcodeWrapper, nodejs }:
+  mkFilter, localMavenRepoBuilder, gradle, status-go, composeXcodeWrapper, nodejs, prod-build }:
 
 with stdenv;
 
@@ -9,7 +9,7 @@ let
     version = "10.2.1";
   };
   xcodeWrapper = composeXcodeWrapper xcodewrapperArgs;
-  androidPlatform = callPackage ./android { inherit config pkgs mkFilter nodejs gradle status-go nodeProjectName developmentNodePackages; projectNodePackage = projectNodePackage'; };
+  androidPlatform = callPackage ./android { inherit config pkgs mkFilter nodejs gradle status-go localMavenRepoBuilder nodeProjectName developmentNodePackages; projectNodePackage = projectNodePackage'; };
   iosPlatform = callPackage ./ios { inherit config pkgs mkFilter xcodeWrapper status-go nodeProjectName developmentNodePackages; projectNodePackage = projectNodePackage'; };
   selectedSources =
     lib.optional platform.targetAndroid androidPlatform ++
@@ -29,7 +29,6 @@ let
   });
   nodeProjectName = "StatusIm";
   realmOverrides = import ./realm-overrides { inherit stdenv target-os nodeProjectName fetchurl nodejs; };
-  mkFilter = import ./mkFilter.nix { inherit lib; };
 
 in
   {
@@ -44,4 +43,6 @@ in
       status-go.shellHook-android +
       status-go.shellHook-ios +
       lib.concatStrings (lib.catAttrs "shellHook" selectedSources);
+
+    prod-build = prod-build { projectNodePackage = projectNodePackage'; };
   }

@@ -31,6 +31,11 @@ in mkShell' {
     ps # used in scripts/start-react-native.sh
     unzip
     wget
+
+    clojure
+    leiningen
+    maven
+    watchman
   ] ++
   (if useFastlanePkg then [ fastlane' ] else lib.optionals platform.targetMobile [ bundler ruby ]); # bundler/ruby used for fastlane on macOS
   inputsFrom = [ projectDeps ];

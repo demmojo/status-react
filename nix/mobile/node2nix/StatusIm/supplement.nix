@@ -211,13 +211,13 @@ let
         sha1 = "49bd6331d7d02d0c09bc910a1075ba8165b56df9";
       };
     };
-    "inherits-2.0.3" = {
+    "inherits-2.0.4" = {
       name = "inherits";
       packageName = "inherits";
-      version = "2.0.3";
+      version = "2.0.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/inherits/-/inherits-2.0.3.tgz";
-        sha1 = "633c2c83e3da42a502f52466022480f4208261de";
+        url = "https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz";
+        sha512 = "k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==";
       };
     };
     "ini-1.3.5" = {
@@ -418,13 +418,13 @@ let
         sha1 = "174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f";
       };
     };
-    "process-nextick-args-2.0.0" = {
+    "process-nextick-args-2.0.1" = {
       name = "process-nextick-args";
       packageName = "process-nextick-args";
-      version = "2.0.0";
+      version = "2.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.0.tgz";
-        sha512 = "MtEC1TqN0EU5nephaJ4rAtThHtC86dNN9qCuEhtshvpVBkAW5ZO7BASN9REnF9eoXGcRub+pFuKEpOHE+HbEMw==";
+        url = "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz";
+        sha512 = "3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==";
       };
     };
     "rc-1.2.8" = {
@@ -624,7 +624,7 @@ in
       sources."iconv-lite-0.4.24"
       sources."ignore-walk-3.0.1"
       sources."inflight-1.0.6"
-      sources."inherits-2.0.3"
+      sources."inherits-2.0.4"
       sources."ini-1.3.5"
       sources."is-fullwidth-code-point-1.0.0"
       sources."isarray-1.0.0"
@@ -646,7 +646,7 @@ in
       sources."os-tmpdir-1.0.2"
       sources."osenv-0.1.5"
       sources."path-is-absolute-1.0.1"
-      sources."process-nextick-args-2.0.0"
+      sources."process-nextick-args-2.0.1"
       (sources."rc-1.2.8" // {
         dependencies = [
           sources."minimist-1.2.0"

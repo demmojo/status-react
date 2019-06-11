@@ -1,6 +1,6 @@
 { config, stdenv, stdenvNoCC, callPackage,
-  pkgs, mkFilter, androidenv, fetchurl, openjdk, nodejs, bash, gradle, perl, zlib,
-  status-go, nodeProjectName, projectNodePackage, developmentNodePackages }:
+  pkgs, mkFilter, androidenv, fetchurl, openjdk, nodejs, bash, gradle, zlib,
+  status-go, localMavenRepoBuilder, nodeProjectName, projectNodePackage, developmentNodePackages }:
 
 with stdenv;
 
@@ -25,21 +25,8 @@ let
     includeExtras = [ "extras;android;m2repository" "extras;google;m2repository" ];
   };
   licensedAndroidEnv = callPackage ./licensed-android-sdk.nix { inherit androidComposition; };
-  src =
-    let path = ./../../..; # Import the root /android and /mobile_files folders clean of any build artifacts
-    in builtins.path { # We use builtins.path so that we can name the resulting derivation, otherwise the name would be taken from the checkout directory, which is outside of our control
-      inherit path;
-      name = "status-react";
-      filter =
-        mkFilter {
-          dirsToInclude = [ "android" "mobile_files" "packager" "resources" ];
-          dirsToExclude = [ ".git" ".svn" "CVS" ".hg" ".gradle" "build" "intermediates" "libs" "obj" ];
-          filesToInclude = [ ".babelrc" ];
-          root = path;
-        };
-    };
 
-  mavenAndNpmDeps = callPackage ./maven-and-npm-deps { inherit stdenvNoCC gradle bash perl zlib src nodeProjectName androidEnvShellHook projectNodePackage developmentNodePackages status-go; };
+  mavenAndNpmDeps = callPackage ./maven-and-npm-deps { inherit stdenvNoCC gradle bash zlib androidEnvShellHook localMavenRepoBuilder mkFilter nodeProjectName projectNodePackage developmentNodePackages status-go; };
 
   androidEnvShellHook = ''
     export JAVA_HOME="${openjdk}"
@@ -58,7 +45,7 @@ in
     buildInputs = [ mavenAndNpmDeps.deps openjdk gradle ];
     shellHook =
       androidEnvShellHook + 
-      (mavenAndNpmDeps.shellHook mavenAndNpmDeps)+ ''
+      (mavenAndNpmDeps.shellHook mavenAndNpmDeps) + ''
       $STATUS_REACT_HOME/scripts/generate-keystore.sh
 
       $STATUS_REACT_HOME/nix/mobile/reset-node_modules.sh "${mavenAndNpmDeps.deps}" && \

@@ -12,7 +12,7 @@ let
       name = "status-react";
       filter =
         mkFilter {
-          dirsToInclude = [ "mobile_files" ];
+          dirRootsToInclude = [ "mobile_files" ];
           dirsToExclude = [ ".git" ".svn" "CVS" ".hg" ];
           filesToInclude = [ ".babelrc" ];
           root = path;

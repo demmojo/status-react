@@ -1,19 +1,36 @@
 { stdenv, stdenvNoCC, lib, callPackage,
-  gradle, bash, file, perl, status-go, zlib,
-  src, nodeProjectName, projectNodePackage, androidEnvShellHook, developmentNodePackages }:
+  gradle, bash, file, status-go, zlib,
+  nodeProjectName, projectNodePackage, developmentNodePackages, androidEnvShellHook, localMavenRepoBuilder, mkFilter }:
 
 let
-  mavenLocalRepos = import ./maven/maven-repo.nix { inherit stdenvNoCC callPackage; };
+  mavenLocalRepos = import ./maven/maven-repo.nix { inherit stdenvNoCC localMavenRepoBuilder; };
 
   jsc-filename = "jsc-android-236355.1.1";
   react-native-deps = callPackage ./maven/reactnative-android-native-deps.nix { inherit stdenvNoCC jsc-filename; };
+
+  src =
+    let path = ./../../../..; # Import the root /android and /mobile_files folders clean of any build artifacts
+    in builtins.path { # We use builtins.path so that we can name the resulting derivation, otherwise the name would be taken from the checkout directory, which is outside of our control
+      inherit path;
+      name = "status-react";
+      filter =
+        mkFilter {
+          dirRootsToInclude = [
+            "android" "mobile_files" "packager" "resources"
+            "translations" "status-modules"
+          ];
+          dirsToExclude = [ ".git" ".svn" "CVS" ".hg" ".gradle" "build" "intermediates" "libs" "obj" ];
+          filesToInclude = [ ".babelrc" ];
+          root = path;
+        };
+    };
 
   # fake build to pre-download deps into fixed-output derivation
   deps = stdenv.mkDerivation {
     name = "gradle-install-android-archives-and-patched-npm-modules";
     inherit src;
     nativeBuildInputs = builtins.attrValues developmentNodePackages;
-    buildInputs = [ gradle bash file perl zlib ] ++ status-go.buildInputs-android;
+    buildInputs = [ gradle bash file zlib ] ++ status-go.buildInputs-android;
     unpackPhase = ''
       runHook preUnpack
 
@@ -30,6 +47,9 @@ let
 
       # Adjust permissions
       chmod -R u+w .
+
+      cp -R status-modules/ node_modules/status-modules/
+      cp -R translations/ node_modules/status-modules/translations/
 
       # Set up symlinks to mobile enviroment in project root 
       ln -sf ./mobile_files/package.json.orig package.json
@@ -87,7 +107,7 @@ let
     installPhase = ''
       rm -rf $out
       mkdir -p $out
-      cp -R node_modules/ $out
+      cp -R android/ node_modules/ $out
 
       # Patch prepareJSC so that it doesn't subsequently try to build NDK libs
       substituteInPlace $out/node_modules/react-native/ReactAndroid/build.gradle \

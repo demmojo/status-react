@@ -1,8 +1,7 @@
-{ stdenvNoCC, callPackage }:
+{ stdenvNoCC, localMavenRepoBuilder }:
 
 let
-  fakeMavenRepoBuilder = callPackage ./maven-repo-builder.nix { inherit stdenvNoCC; };
-  makeFakeMavenRepo = srcName: source: fakeMavenRepoBuilder "${srcName}-maven-deps" source;
+  makeFakeMavenRepo = srcName: source: localMavenRepoBuilder "${srcName}-maven-deps" source;
   sources = {
     "StatusIm" = import ./StatusIm { };
     "react-native-android" = import ./react-native-android { };

@@ -841,13 +841,31 @@ let
         sha512 = "dOllgYdnEFOebhkKCjzSVFqw/PmmB8pH6RGOWkY4GsboQNd47b1fBThBSwlHAq9alF9vc1M3+6oqR47R50L0tQ==";
       };
     };
-    "@react-native-community/cli-1.9.8" = {
+    "@react-native-community/cli-1.9.10" = {
       name = "_at_react-native-community_slash_cli";
       packageName = "@react-native-community/cli";
-      version = "1.9.8";
+      version = "1.9.10";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@react-native-community/cli/-/cli-1.9.8.tgz";
-        sha512 = "/qd1fRJzisTjYpfNJ4NGYYM6cWhnTbmTTUPzi3yHTpfWWtyepAl8MLf6RbXaC8menCkg1jGkke6hD4rDoUJK0A==";
+        url = "https://registry.npmjs.org/@react-native-community/cli/-/cli-1.9.10.tgz";
+        sha512 = "mYFsSljhia/xNozRRDXC5HyGRBWaDh3OickT28i6NrJSZLjp0kAH6g4c0OWk67EslgXcMi/qYpucA8W54ldu1w==";
+      };
+    };
+    "@react-navigation/core-3.4.2" = {
+      name = "_at_react-navigation_slash_core";
+      packageName = "@react-navigation/core";
+      version = "3.4.2";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@react-navigation/core/-/core-3.4.2.tgz";
+        sha512 = "7G+iDzLSTeOUU4vVZeRZKJ+Bd7ds7ZxYNqZcB8i0KlBeQEQfR74Ounfu/p0KIEq2RiNnaE3QT7WVP3C87sebzw==";
+      };
+    };
+    "@react-navigation/native-3.5.0" = {
+      name = "_at_react-navigation_slash_native";
+      packageName = "@react-navigation/native";
+      version = "3.5.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@react-navigation/native/-/native-3.5.0.tgz";
+        sha512 = "TmGOis++ejEXG3sqNJhCSKqB0/qLu3FQgDtO959qpqif36R/diR8SQwJqeSdofoEiK3CepdhFlTCeHdS1/+MsQ==";
       };
     };
     "@svgr/babel-plugin-add-jsx-attribute-4.2.0" = {
@@ -967,13 +985,13 @@ let
         sha1 = "af19e240e1e580bfa249563924d1be472686f48b";
       };
     };
-    "@types/node-12.0.7" = {
+    "@types/node-12.0.8" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "12.0.7";
+      version = "12.0.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-12.0.7.tgz";
-        sha512 = "1YKeT4JitGgE4SOzyB9eMwO0nGVNkNEsm9qlIt1Lqm/tG2QEiSMTD4kS3aO6L+w5SClLVxALmIBESK6Mk5wX0A==";
+        url = "https://registry.npmjs.org/@types/node/-/node-12.0.8.tgz";
+        sha512 = "b8bbUOTwzIY3V5vDTY1fIJ+ePKDUBqt2hC2woVGotdQQhG/2Sh62HOKHrT7ab+VerXAcPyAiTEipPu/FsreUtg==";
       };
     };
     "@types/unist-2.0.3" = {
@@ -1606,13 +1624,13 @@ let
         sha1 = "a4301d389b6a43f9b67ff3ca11a3f6637e360e9e";
       };
     };
-    "big-integer-1.6.43" = {
+    "big-integer-1.6.44" = {
       name = "big-integer";
       packageName = "big-integer";
-      version = "1.6.43";
+      version = "1.6.44";
       src = fetchurl {
-        url = "https://registry.npmjs.org/big-integer/-/big-integer-1.6.43.tgz";
-        sha512 = "9dULc9jsKmXl0Aeunug8wbF+58n+hQoFjqClN7WeZwGLh0XJUWyJJ9Ee+Ep+Ql/J9fRsTVaeThp8MhiCCrY0Jg==";
+        url = "https://registry.npmjs.org/big-integer/-/big-integer-1.6.44.tgz";
+        sha512 = "7MzElZPTyJ2fNvBkPxtFQ2fWIkVmuzw41+BZHSzpEq3ymB2MfeKp1+yXl/tS75xCx+WnyV+yb0kp+K1C3UNwmQ==";
       };
     };
     "bignumber.js-git+https://github.com/status-im/bignumber.js.git#v4.0.2-status" = {
@@ -1769,13 +1787,13 @@ let
         sha1 = "aa4eb68e5d7b658baa6bf6a57e630cbd7a93d298";
       };
     };
-    "browserslist-4.6.1" = {
+    "browserslist-4.6.3" = {
       name = "browserslist";
       packageName = "browserslist";
-      version = "4.6.1";
+      version = "4.6.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.6.1.tgz";
-        sha512 = "1MC18ooMPRG2UuVFJTHFIAkk6mpByJfxCrnUyvSlu/hyQSFHMrlhM02SzNuCV+quTP4CKmqtOMAIjrifrpBJXQ==";
+        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.6.3.tgz";
+        sha512 = "CNBqTCq22RKM8wKJNowcqihHJ4SkI8CGeK7KOR9tPboXUuS5Zk5lQgzzTbs4oxD8x+6HUshZUa2OyNI9lR93bQ==";
       };
     };
     "bser-2.0.0" = {
@@ -1949,13 +1967,13 @@ let
         sha512 = "L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==";
       };
     };
-    "caniuse-lite-1.0.30000974" = {
+    "caniuse-lite-1.0.30000975" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30000974";
+      version = "1.0.30000975";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000974.tgz";
-        sha512 = "xc3rkNS/Zc3CmpMKuczWEdY2sZgx09BkAxfvkxlAEBTqcMHeL8QnPqhKse+5sRTi3nrw2pJwToD2WvKn1Uhvww==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000975.tgz";
+        sha512 = "ZsXA9YWQX6ATu5MNg+Vx/cMQ+hM6vBBSqDeJs8ruk9z0ky4yIHML15MoxcFt088ST2uyjgqyUGRJButkptWf0w==";
       };
     };
     "capture-exit-1.2.0" = {
@@ -2046,15 +2064,6 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/cipher-base/-/cipher-base-1.0.4.tgz";
         sha512 = "Kkht5ye6ZGmwv40uUDZztayT2ThLQGfnj/T71N/XzeZeo3nf8foyW7zGTsPYkEya3m5f3cAypH+qe7YOrM1U2Q==";
-      };
-    };
-    "clamp-1.0.1" = {
-      name = "clamp";
-      packageName = "clamp";
-      version = "1.0.1";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/clamp/-/clamp-1.0.1.tgz";
-        sha1 = "66a0e64011816e37196828fdc8c8c147312c8634";
       };
     };
     "class-utils-0.3.6" = {
@@ -2408,15 +2417,6 @@ let
         sha512 = "M+/3Q6E6DLO6Yx3OwrWjwHBnvfXXYA7W+dFjt/ZDBemHO1DDZhsalX/NUtnTYclN6GfnBDRh4qRHjcDHmlJBJg==";
       };
     };
-    "create-react-context-0.2.2" = {
-      name = "create-react-context";
-      packageName = "create-react-context";
-      version = "0.2.2";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/create-react-context/-/create-react-context-0.2.2.tgz";
-        sha512 = "KkpaLARMhsTsgp0d2NA/R94F/eDLbhXERdIq3LvX2biCAXcDvHYoOqHfWCHf1+OLj+HKBotLG3KqaOOf+C1C+A==";
-      };
-    };
     "cross-spawn-5.1.0" = {
       name = "cross-spawn";
       packageName = "cross-spawn";
@@ -2732,13 +2732,13 @@ let
         sha1 = "590c61156b0ae2f4f0255732a158b266bc56b21d";
       };
     };
-    "electron-to-chromium-1.3.150" = {
+    "electron-to-chromium-1.3.166" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.3.150";
+      version = "1.3.166";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.150.tgz";
-        sha512 = "5wuYlaXhXbBvavSTij5ZyidICB6sAK/1BwgZZoPCgsniid1oDgzVvDOV/Dw6J25lKV9QZ9ZdQCp8MEfF0/OIKA==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.166.tgz";
+        sha512 = "7XwtJz81H/PBnkmQ/07oVPOGTkBZs6ibZN8OqXNUrxjRPzR0Xj+MFcMmRZEXGilEg1Pm+97V8BZVI63qnBX1hQ==";
       };
     };
     "elliptic-6.4.1" = {
@@ -3551,6 +3551,15 @@ let
         sha1 = "e76989268a6c74c38908b1305b10fc0e394e9d0f";
       };
     };
+    "global-4.4.0" = {
+      name = "global";
+      packageName = "global";
+      version = "4.4.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/global/-/global-4.4.0.tgz";
+        sha512 = "wv/LAoHdRE3BeTGz53FAamhGlPLhlssK45usmGFThIi4XqnBmjKQ16u+RNbP7WvigRZDxUsM0J3gcQ5yicaL0w==";
+      };
+    };
     "globals-11.12.0" = {
       name = "globals";
       packageName = "globals";
@@ -3585,15 +3594,6 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/growly/-/growly-1.3.0.tgz";
         sha1 = "f10748cbe76af964b7c96c93c6bcc28af120c081";
-      };
-    };
-    "gud-1.0.0" = {
-      name = "gud";
-      packageName = "gud";
-      version = "1.0.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/gud/-/gud-1.0.0.tgz";
-        sha512 = "zGEOVKFM5sVPPrYs7J5/hYEw2Pof8KCyOwyhG8sAF26mCAeUFAcYPu1mwB7hhpIP29zOIBaDqwuHdLp0jvZXjw==";
       };
     };
     "har-schema-2.0.0" = {
@@ -3767,6 +3767,15 @@ let
         sha512 = "rqcy4pJo55FTTLWt+bU8ukscqHeE/e9KWvsOW2b/a3afxQZhwkQdT1rPPCJ0rYXdj4vNcasY8zHTH+jF/qStxw==";
       };
     };
+    "hoist-non-react-statics-3.3.0" = {
+      name = "hoist-non-react-statics";
+      packageName = "hoist-non-react-statics";
+      version = "3.3.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-3.3.0.tgz";
+        sha512 = "0XsbTXxgiaCDYDIWFcwkmerZPSwywfUqYmwT4jzewKTQSWoE6FCMoUVOeBJWK3E/CrWbxRG3m5GzY4lnIwGRBA==";
+      };
+    };
     "home-or-tmp-3.0.0" = {
       name = "home-or-tmp";
       packageName = "home-or-tmp";
@@ -3937,6 +3946,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/inherits/-/inherits-2.0.3.tgz";
         sha1 = "633c2c83e3da42a502f52466022480f4208261de";
+      };
+    };
+    "inherits-2.0.4" = {
+      name = "inherits";
+      packageName = "inherits";
+      version = "2.0.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz";
+        sha512 = "k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==";
       };
     };
     "ini-1.3.5" = {
@@ -6000,13 +6018,13 @@ let
         sha1 = "1638d8a8e34c2f440a91db95ab9aeb677fc185cf";
       };
     };
-    "process-nextick-args-2.0.0" = {
+    "process-nextick-args-2.0.1" = {
       name = "process-nextick-args";
       packageName = "process-nextick-args";
-      version = "2.0.0";
+      version = "2.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.0.tgz";
-        sha512 = "MtEC1TqN0EU5nephaJ4rAtThHtC86dNN9qCuEhtshvpVBkAW5ZO7BASN9REnF9eoXGcRub+pFuKEpOHE+HbEMw==";
+        url = "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz";
+        sha512 = "3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==";
       };
     };
     "progress-2.0.3" = {
@@ -6072,13 +6090,13 @@ let
         sha1 = "f052a28da70e618917ef0a8ac34c1ae5a68286b3";
       };
     };
-    "psl-1.1.32" = {
+    "psl-1.1.33" = {
       name = "psl";
       packageName = "psl";
-      version = "1.1.32";
+      version = "1.1.33";
       src = fetchurl {
-        url = "https://registry.npmjs.org/psl/-/psl-1.1.32.tgz";
-        sha512 = "MHACAkHpihU/REGGPLj4sEfc/XKW2bheigvHO1dUqjaKigMp1C8+WLQYRGgeKFMsw5PMfegZcaN8IDXK/cD0+g==";
+        url = "https://registry.npmjs.org/psl/-/psl-1.1.33.tgz";
+        sha512 = "LTDP2uSrsc7XCb5lO7A8BI1qYxRe/8EqlRvMeEl6rsnYAqDOl8xHR+8lSAIVfrNaSAlTPTNOCgNjWcoUL3AZsw==";
       };
     };
     "public-encrypt-4.0.3" = {
@@ -6162,13 +6180,13 @@ let
         sha512 = "gjWOsm2SoGlgLEdAGt7a6slVOk9mGiXmPFMqrEhLQ68rhQuBnpfs3+EmlvqKyxnCo9/PPlF+9MtY02S1aFg+Jw==";
       };
     };
-    "query-string-6.6.0" = {
+    "query-string-6.8.0" = {
       name = "query-string";
       packageName = "query-string";
-      version = "6.6.0";
+      version = "6.8.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/query-string/-/query-string-6.6.0.tgz";
-        sha512 = "Xhvaa80rZzfvI7gYXF6ism5otKTyea90XROstBTBKiWE/tDfnIDbQwkGLguJaQBNweVCW4T9DoTe5eyox0CbZQ==";
+        url = "https://registry.npmjs.org/query-string/-/query-string-6.8.0.tgz";
+        sha512 = "CVpZPN0xDUfmoT7qlDbbx/2jNjk43LW3Ayjy7E2BjOQNlL8L/hqhihUpv/XPu/w3H/LBjlZ7OXP8x/QEnuxTtA==";
       };
     };
     "querystring-0.2.0" = {
@@ -6362,33 +6380,6 @@ let
         sha512 = "Q3e4bAPp13jnPkStKYzyE/pb6xVY1spSlGHzq3zljV7uMXqFHjuTBRiM/qfm2bSZplR/znzVS/y2TtcW+1aufQ==";
       };
     };
-    "react-native-dismiss-keyboard-1.0.0" = {
-      name = "react-native-dismiss-keyboard";
-      packageName = "react-native-dismiss-keyboard";
-      version = "1.0.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/react-native-dismiss-keyboard/-/react-native-dismiss-keyboard-1.0.0.tgz";
-        sha1 = "32886242b3f2317e121f3aeb9b0a585e2b879b49";
-      };
-    };
-    "react-native-drawer-layout-1.3.2" = {
-      name = "react-native-drawer-layout";
-      packageName = "react-native-drawer-layout";
-      version = "1.3.2";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/react-native-drawer-layout/-/react-native-drawer-layout-1.3.2.tgz";
-        sha512 = "fjO0scqbJUfNu2wuEpvywL7DYLXuCXJ2W/zYhWz986rdLytidbys1QGVvkaszHrb4Y7OqO96mTkgpOcP8KWevw==";
-      };
-    };
-    "react-native-drawer-layout-polyfill-1.3.2" = {
-      name = "react-native-drawer-layout-polyfill";
-      packageName = "react-native-drawer-layout-polyfill";
-      version = "1.3.2";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/react-native-drawer-layout-polyfill/-/react-native-drawer-layout-polyfill-1.3.2.tgz";
-        sha512 = "XzPhfLDJrYHru+e8+dFwhf0FtTeAp7JXPpFYezYV6P1nTeA1Tia/kDpFT+O2DWTrBKBEI8FGhZnThrroZmHIxg==";
-      };
-    };
     "react-native-fetch-polyfill-1.1.2" = {
       name = "react-native-fetch-polyfill";
       packageName = "react-native-fetch-polyfill";
@@ -6415,6 +6406,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/react-native-fs/-/react-native-fs-2.11.15.tgz";
         sha512 = "JDcpYOBYWHHZqaqxG9c17uGapTQQLvVic0GewQWxhad3ftPVodBQ6qMZxyR1h6U8SN2eaJhFqAfenUKl1UtVJg==";
+      };
+    };
+    "react-native-gesture-handler-1.3.0" = {
+      name = "react-native-gesture-handler";
+      packageName = "react-native-gesture-handler";
+      version = "1.3.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-1.3.0.tgz";
+        sha512 = "ASRFIXBuKRvqlmwkWJhV8yP2dTpvcqVrLNpd7FKVBFHYWr6SAxjGyO9Ik8w1lAxDhMlRP2IcJ9p9eq5X2WWeLQ==";
       };
     };
     "react-native-git+https://github.com/status-im/react-native.git#status-v0.59.3" = {
@@ -6522,13 +6522,13 @@ let
         sha1 = "a641130a52eca65ef2165409f65d930184c6dc83";
       };
     };
-    "react-native-safe-area-view-0.11.0" = {
+    "react-native-safe-area-view-0.14.5" = {
       name = "react-native-safe-area-view";
       packageName = "react-native-safe-area-view";
-      version = "0.11.0";
+      version = "0.14.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/react-native-safe-area-view/-/react-native-safe-area-view-0.11.0.tgz";
-        sha512 = "N3nElaahu1Me2ltnfc9acpgt1znm6pi8DSadKy79kvdzKwvVIzw0IXueA/Hjr51eCW1BsfNw7D1SgBT9U6qEkA==";
+        url = "https://registry.npmjs.org/react-native-safe-area-view/-/react-native-safe-area-view-0.14.5.tgz";
+        sha512 = "1NxWK1G0gzwCOuyNV/zf4n18s6FWsiqgwkzU3P9C0Iu8AErjhstK1jUqpRwzLH8+/7hGLsrQedmn+ZbQTOrJPg==";
       };
     };
     "react-native-safe-area-view-0.9.0" = {
@@ -6596,13 +6596,13 @@ let
         sha256 = "bfd54ed4f86f46d5d190f2f1d58ced882809aa00729ad4718e6cd000d693537c";
       };
     };
-    "react-native-svg-9.4.0" = {
+    "react-native-svg-9.5.1" = {
       name = "react-native-svg";
       packageName = "react-native-svg";
-      version = "9.4.0";
+      version = "9.5.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/react-native-svg/-/react-native-svg-9.4.0.tgz";
-        sha512 = "IVJlVbS2dAPerPr927fEi4uXzrPXzlra5ddgyJXZZ2IKA2ZygyYWFZDM+vsQs+Vj20CfL8nOWszQQV57vdQgFg==";
+        url = "https://registry.npmjs.org/react-native-svg/-/react-native-svg-9.5.1.tgz";
+        sha512 = "cRGfomzG/5LEwuJ6ct3m5yccckeI9aj8BNYwDPVxOeJ84LuJuvk5OqcjlYNeEzOWmWiH+QrFXfpLH1ag04bUeQ==";
       };
     };
     "react-native-svg-transformer-0.12.1" = {
@@ -6612,15 +6612,6 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/react-native-svg-transformer/-/react-native-svg-transformer-0.12.1.tgz";
         sha512 = "lau+hkPXFo40vUIUkp2nJCNeVJwsLxOx5qRvdUhuaSXGtvQbl+w+q3qs68Cy2Eqm+fvu1feWCp/OT30nW+yKpw==";
-      };
-    };
-    "react-native-tab-view-0.0.77" = {
-      name = "react-native-tab-view";
-      packageName = "react-native-tab-view";
-      version = "0.0.77";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/react-native-tab-view/-/react-native-tab-view-0.0.77.tgz";
-        sha512 = "9vjD4Ly1Zlum1Y4g23ODpi/F3gYIUIsKWrsZO/Oh5cuX1eiB1DRVn11nY1z+j/hsQfhfyW6nDlmySyDvYQvYCA==";
       };
     };
     "react-native-tab-view-1.4.1" = {
@@ -6661,13 +6652,13 @@ let
         sha256 = "7e5b7e0a152c2b7a04644cdb3d5475a788b71cbd4061d5001e8c5326ab805cc8";
       };
     };
-    "react-native-webview-5.10.0" = {
+    "react-native-webview-5.12.0" = {
       name = "react-native-webview";
       packageName = "react-native-webview";
-      version = "5.10.0";
+      version = "5.12.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/react-native-webview/-/react-native-webview-5.10.0.tgz";
-        sha512 = "CCs1hsQv5w1lHSGrJXI00lL+Ab69wAbYg6uusLk1GqabA4y2vfVDFT0Q4SxGVLTn0X2G39flkvm5nRVnzWVLyw==";
+        url = "https://registry.npmjs.org/react-native-webview/-/react-native-webview-5.12.0.tgz";
+        sha512 = "tdKBRgxq/DP6kg/B3tYoqmWiARY2BKTqbjFHJ8vH7TcThaPprlyWJyHuO54FfrS9dnPpU2H4C5i3btJvvy2OVQ==";
       };
     };
     "react-native-webview-bridge-git+https://github.com/status-im/react-native-webview-bridge.git#fix/classnames-colision" = {
@@ -6680,49 +6671,40 @@ let
         sha256 = "e607fb05bfc52e90866095e2e7691b96c70568ec5f1260a2e202ad444c873043";
       };
     };
-    "react-navigation-2.18.3" = {
+    "react-navigation-3.11.0" = {
       name = "react-navigation";
       packageName = "react-navigation";
-      version = "2.18.3";
+      version = "3.11.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/react-navigation/-/react-navigation-2.18.3.tgz";
-        sha512 = "/5KGMG1Oj5LN/x/7AKF0MWrpX9Qe29307RxEsMCiRT/A4jCYT0DPY99Bl7ZAGtROxExEy3rwTfTrtvpIT+CU7A==";
+        url = "https://registry.npmjs.org/react-navigation/-/react-navigation-3.11.0.tgz";
+        sha512 = "wlPcDtNiIdPeYxNQ/MN4arY5Xe9EphD2QVpRuvvuPWW+BamF3AJaIy060r3Yz59DODAoWllscabat/yqnih8Tg==";
       };
     };
-    "react-navigation-deprecated-tab-navigator-1.3.0" = {
-      name = "react-navigation-deprecated-tab-navigator";
-      packageName = "react-navigation-deprecated-tab-navigator";
-      version = "1.3.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/react-navigation-deprecated-tab-navigator/-/react-navigation-deprecated-tab-navigator-1.3.0.tgz";
-        sha512 = "Cm+qYOPFWbvvcuv0YYX0ioYwLGgw7XAqdhAfpo3sIr3trxRW8871ePmfFOPezjQtz4v6ItjZt6LPgtBAVZoroQ==";
-      };
-    };
-    "react-navigation-drawer-0.5.0" = {
+    "react-navigation-drawer-1.2.1" = {
       name = "react-navigation-drawer";
       packageName = "react-navigation-drawer";
-      version = "0.5.0";
+      version = "1.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/react-navigation-drawer/-/react-navigation-drawer-0.5.0.tgz";
-        sha512 = "F1y593uC6pqBMGH+Omz75oNODEbxB/s0EGO8QtYwu1NmOOEUuuLA+c14zm+pgMsI4HlDabiHxPkWqsgGz25xVQ==";
+        url = "https://registry.npmjs.org/react-navigation-drawer/-/react-navigation-drawer-1.2.1.tgz";
+        sha512 = "T2kaBjY2c4/3I6noWFnaf/c18ntNH5DsST38i+pdc2NPxn5Yi5lkK+ZZTeKuHSFD4a7G0jWY9OGf1iRkHWLMAQ==";
       };
     };
-    "react-navigation-stack-0.7.0" = {
+    "react-navigation-stack-1.4.0" = {
       name = "react-navigation-stack";
       packageName = "react-navigation-stack";
-      version = "0.7.0";
+      version = "1.4.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/react-navigation-stack/-/react-navigation-stack-0.7.0.tgz";
-        sha512 = "3Tbb/SsustBrM9R/qaI6XuOfyqYMVbwkeHFC8NbU890vB0aKZvjAtioWLZ18e/4LgbiOCmoTdp37z3gkGDyNDQ==";
+        url = "https://registry.npmjs.org/react-navigation-stack/-/react-navigation-stack-1.4.0.tgz";
+        sha512 = "zEe9wCA0Ot8agarYb//0nSWYW1GM+1R0tY/nydUV0EizeJ27At0EklYVWvYEuYU6C48va6cu8OPL7QD/CcJACw==";
       };
     };
-    "react-navigation-tabs-0.8.4" = {
+    "react-navigation-tabs-1.1.4" = {
       name = "react-navigation-tabs";
       packageName = "react-navigation-tabs";
-      version = "0.8.4";
+      version = "1.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/react-navigation-tabs/-/react-navigation-tabs-0.8.4.tgz";
-        sha512 = "CbS3xIVJVtpu+AYslv0PMLmjddJFVtU3XAhSJ9XnMrKLUJNmnQdW/L0w/Gp5qcBEF9h6bgsY3CoTtp7I6bqyOQ==";
+        url = "https://registry.npmjs.org/react-navigation-tabs/-/react-navigation-tabs-1.1.4.tgz";
+        sha512 = "py2hLCRxPwXOzmY1W9XcY1rWXxdK6RGW/aXh56G9gIf8cpHNDhy/bJV4e46/JrVcse3ybFaN0liT09/DM/NdwQ==";
       };
     };
     "react-proxy-1.1.8" = {
@@ -7977,13 +7959,13 @@ let
         sha1 = "5c080e5d661cbbe38259d2e70a3c7253e873881d";
       };
     };
-    "ua-parser-js-0.7.19" = {
+    "ua-parser-js-0.7.20" = {
       name = "ua-parser-js";
       packageName = "ua-parser-js";
-      version = "0.7.19";
+      version = "0.7.20";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ua-parser-js/-/ua-parser-js-0.7.19.tgz";
-        sha512 = "T3PVJ6uz8i0HzPxOF9SWzWAlfN/DavlpQqepn22xgve/5QecC+XMCAtmUNnY7C9StehaV6exjUCI801lOI7QlQ==";
+        url = "https://registry.npmjs.org/ua-parser-js/-/ua-parser-js-0.7.20.tgz";
+        sha512 = "8OaIKfzL5cpx8eCMAhhvTlft8GYF8b2eQr6JkCyVdrgjcytyOmPCXrqXFcUnhonRpLlh5yxEZVohm6mzaowUOw==";
       };
     };
     "uglify-es-3.3.10" = {
@@ -8722,7 +8704,7 @@ let
         ];
       })
       sources."@babel/types-7.4.4"
-      (sources."@react-native-community/cli-1.9.8" // {
+      (sources."@react-native-community/cli-1.9.10" // {
         dependencies = [
           sources."ansi-styles-2.2.1"
           sources."chalk-1.1.3"
@@ -8730,6 +8712,21 @@ let
           sources."minimist-1.2.0"
           sources."node-fetch-2.6.0"
           sources."supports-color-2.0.0"
+        ];
+      })
+      (sources."@react-navigation/core-3.4.2" // {
+        dependencies = [
+          sources."hoist-non-react-statics-3.3.0"
+        ];
+      })
+      (sources."@react-navigation/native-3.5.0" // {
+        dependencies = [
+          sources."hoist-non-react-statics-3.3.0"
+          (sources."react-native-safe-area-view-0.14.5" // {
+            dependencies = [
+              sources."hoist-non-react-statics-2.5.5"
+            ];
+          })
         ];
       })
       sources."@svgr/babel-plugin-add-jsx-attribute-4.2.0"
@@ -8749,7 +8746,7 @@ let
       sources."@svgr/hast-util-to-babel-ast-4.2.0"
       sources."@svgr/plugin-jsx-4.3.0"
       sources."@tradle/react-native-http-2.0.1"
-      sources."@types/node-12.0.7"
+      sources."@types/node-12.0.8"
       sources."@types/unist-2.0.3"
       sources."@types/vfile-3.0.2"
       sources."@types/vfile-message-1.0.1"
@@ -8873,7 +8870,7 @@ let
       sources."base64-js-0.0.8"
       sources."basic-auth-2.0.1"
       sources."bcrypt-pbkdf-1.0.2"
-      sources."big-integer-1.6.43"
+      sources."big-integer-1.6.44"
       sources."bignumber.js-git+https://github.com/status-im/bignumber.js.git#v4.0.2-status"
       sources."bl-1.2.2"
       sources."bn.js-4.11.8"
@@ -8900,7 +8897,7 @@ let
         ];
       })
       sources."browserify-sign-4.0.4"
-      sources."browserslist-4.6.1"
+      sources."browserslist-4.6.3"
       sources."bser-2.0.0"
       sources."buffer-3.6.0"
       sources."buffer-alloc-1.2.0"
@@ -8920,7 +8917,7 @@ let
       sources."caller-path-2.0.0"
       sources."callsites-2.0.0"
       sources."camelcase-4.1.0"
-      sources."caniuse-lite-1.0.30000974"
+      sources."caniuse-lite-1.0.30000975"
       sources."capture-exit-1.2.0"
       sources."caseless-0.12.0"
       sources."ccount-1.0.4"
@@ -8929,7 +8926,6 @@ let
       sources."chardet-0.4.2"
       sources."chownr-1.1.1"
       sources."cipher-base-1.0.4"
-      sources."clamp-1.0.1"
       (sources."class-utils-0.3.6" // {
         dependencies = [
           sources."define-property-0.2.5"
@@ -9001,7 +8997,6 @@ let
       sources."create-hash-1.2.0"
       sources."create-hmac-1.1.7"
       sources."create-react-class-15.6.2"
-      sources."create-react-context-0.2.2"
       sources."cross-spawn-6.0.5"
       sources."crypto-js-3.1.8"
       sources."d64-1.0.0"
@@ -9050,7 +9045,7 @@ let
       sources."dom-walk-0.1.1"
       sources."ecc-jsbn-0.1.2"
       sources."ee-first-1.1.1"
-      sources."electron-to-chromium-1.3.150"
+      sources."electron-to-chromium-1.3.166"
       sources."elliptic-6.4.1"
       sources."emoji-regex-6.5.1"
       sources."emojilib-2.2.9"
@@ -9171,16 +9166,11 @@ let
       sources."glob-7.1.4"
       sources."glob-base-0.3.0"
       sources."glob-parent-2.0.0"
-      (sources."global-4.3.2" // {
-        dependencies = [
-          sources."process-0.5.2"
-        ];
-      })
+      sources."global-4.4.0"
       sources."globals-11.12.0"
       sources."graceful-fs-4.1.15"
       sources."graceful-readlink-1.0.1"
       sources."growly-1.3.0"
-      sources."gud-1.0.0"
       sources."har-schema-2.0.0"
       sources."har-validator-5.1.3"
       sources."has-1.0.3"
@@ -9219,7 +9209,11 @@ let
           sources."caseless-0.11.0"
         ];
       })
-      sources."http-errors-1.7.2"
+      (sources."http-errors-1.7.2" // {
+        dependencies = [
+          sources."inherits-2.0.3"
+        ];
+      })
       sources."http-response-object-1.1.0"
       sources."http-signature-1.2.0"
       (sources."https-proxy-agent-2.2.1" // {
@@ -9236,7 +9230,7 @@ let
       sources."import-fresh-2.0.0"
       sources."imurmurhash-0.1.4"
       sources."inflight-1.0.6"
-      sources."inherits-2.0.3"
+      sources."inherits-2.0.4"
       sources."ini-1.3.5"
       (sources."inquirer-3.3.0" // {
         dependencies = [
@@ -9564,20 +9558,20 @@ let
       })
       sources."private-0.1.8"
       sources."process-0.11.10"
-      sources."process-nextick-args-2.0.0"
+      sources."process-nextick-args-2.0.1"
       sources."progress-2.0.3"
       sources."promise-7.3.1"
       sources."prop-types-15.6.0"
       sources."property-information-5.1.0"
       sources."proxy-addr-2.0.5"
       sources."pseudomap-1.0.2"
-      sources."psl-1.1.32"
+      sources."psl-1.1.33"
       sources."public-encrypt-4.0.3"
       sources."pump-3.0.0"
       sources."punycode-1.4.1"
       sources."qr.js-0.0.0"
       sources."qs-6.5.2"
-      sources."query-string-6.6.0"
+      sources."query-string-6.8.0"
       sources."querystring-0.2.0"
       sources."querystring-es3-0.2.1"
       sources."querystringify-2.1.1"
@@ -9640,9 +9634,6 @@ let
       sources."react-native-config-git+https://github.com/status-im/react-native-config.git#0.11.2-1"
       sources."react-native-crypto-2.1.1"
       sources."react-native-dialogs-1.0.4"
-      sources."react-native-dismiss-keyboard-1.0.0"
-      sources."react-native-drawer-layout-1.3.2"
-      sources."react-native-drawer-layout-polyfill-1.3.2"
       sources."react-native-fetch-polyfill-1.1.2"
       (sources."react-native-firebase-git+https://github.com/status-im/react-native-firebase.git#v5.0.0-rc1-status" // {
         dependencies = [
@@ -9650,6 +9641,7 @@ let
         ];
       })
       sources."react-native-fs-2.11.15"
+      sources."react-native-gesture-handler-1.3.0"
       sources."react-native-http-bridge-0.6.1"
       sources."react-native-image-crop-picker-0.18.1"
       sources."react-native-image-resizer-git+https://github.com/status-im/react-native-image-resizer.git#1.0.0-1-status"
@@ -9672,9 +9664,13 @@ let
       sources."react-native-shake-3.3.1"
       sources."react-native-splash-screen-3.1.1"
       sources."react-native-status-keycard-git+https://github.com/status-im/react-native-status-keycard.git#v2.5.5"
-      sources."react-native-svg-9.4.0"
+      sources."react-native-svg-9.5.1"
       sources."react-native-svg-transformer-0.12.1"
-      sources."react-native-tab-view-0.0.77"
+      (sources."react-native-tab-view-1.4.1" // {
+        dependencies = [
+          sources."prop-types-15.7.2"
+        ];
+      })
       (sources."react-native-tcp-git+https://github.com/status-im/react-native-tcp.git#v3.3.0-1-status" // {
         dependencies = [
           (sources."buffer-5.2.1" // {
@@ -9686,24 +9682,18 @@ let
       })
       sources."react-native-touch-id-4.4.1"
       sources."react-native-udp-git+https://github.com/status-im/react-native-udp.git#v2.3.1-1-status"
-      sources."react-native-webview-5.10.0"
+      sources."react-native-webview-5.12.0"
       (sources."react-native-webview-bridge-git+https://github.com/status-im/react-native-webview-bridge.git#fix/classnames-colision" // {
         dependencies = [
           sources."invariant-2.2.0"
         ];
       })
-      (sources."react-navigation-2.18.3" // {
-        dependencies = [
-          sources."react-native-safe-area-view-0.11.0"
-        ];
-      })
-      sources."react-navigation-deprecated-tab-navigator-1.3.0"
-      sources."react-navigation-drawer-0.5.0"
-      sources."react-navigation-stack-0.7.0"
-      (sources."react-navigation-tabs-0.8.4" // {
+      sources."react-navigation-3.11.0"
+      sources."react-navigation-drawer-1.2.1"
+      sources."react-navigation-stack-1.4.0"
+      (sources."react-navigation-tabs-1.1.4" // {
         dependencies = [
           sources."prop-types-15.7.2"
-          sources."react-native-tab-view-1.4.1"
         ];
       })
       sources."react-proxy-1.1.8"
@@ -9993,7 +9983,7 @@ let
       })
       sources."typedarray-0.0.6"
       sources."typical-2.6.1"
-      sources."ua-parser-js-0.7.19"
+      sources."ua-parser-js-0.7.20"
       (sources."uglify-es-3.3.10" // {
         dependencies = [
           sources."commander-2.14.1"
@@ -10110,7 +10100,12 @@ let
       })
       sources."x-is-string-0.1.0"
       sources."xcode-2.0.0"
-      sources."xhr-2.5.0"
+      (sources."xhr-2.5.0" // {
+        dependencies = [
+          sources."global-4.3.2"
+          sources."process-0.5.2"
+        ];
+      })
       (sources."xhr-request-1.1.0" // {
         dependencies = [
           sources."query-string-5.1.1"

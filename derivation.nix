@@ -11,8 +11,11 @@ let
   go = pkgs.go_1_11;
   buildGoPackage = pkgs.buildGoPackage.override { inherit go; };
   statusDesktop = pkgs.callPackage ./nix/desktop { inherit target-os status-go pkgs go; inherit (pkgs) darwin; stdenv = stdenv'; nodejs = nodejs'; };
-  statusMobile = pkgs.callPackage ./nix/mobile { inherit target-os config pkgs status-go gradle; inherit (pkgs.xcodeenv) composeXcodeWrapper; stdenv = stdenv'; nodejs = nodejs'; };
+  statusMobile = pkgs.callPackage ./nix/mobile { inherit target-os config pkgs status-go gradle localMavenRepoBuilder mkFilter prod-build; inherit (pkgs.xcodeenv) composeXcodeWrapper; stdenv = stdenv'; nodejs = nodejs'; };
   status-go = pkgs.callPackage ./nix/status-go { inherit target-os go buildGoPackage; inherit (pkgs.xcodeenv) composeXcodeWrapper; inherit (statusMobile) xcodewrapperArgs; androidPkgs = statusMobile.androidComposition; };
+  mkFilter = import ./nix/mkFilter.nix { inherit (stdenv') lib; };
+  localMavenRepoBuilder = pkgs.callPackage ./nix/tools/maven/maven-repo-builder.nix { inherit (pkgs) stdenvNoCC; };
+  prod-build = pkgs.callPackage ./nix/actions/prod-build.nix { inherit pkgs target-os localMavenRepoBuilder mkFilter; stdenv = stdenv'; nodejs = nodejs'; };
   nodejs' = pkgs.nodejs-10_x;
   yarn' = pkgs.yarn.override { nodejs = nodejs'; };
   nodePkgBuildInputs = [
@@ -25,18 +28,18 @@ let
     stdenv'.lib.optional platform.targetDesktop statusDesktop ++
     stdenv'.lib.optional platform.targetMobile statusMobile;
 
-in with stdenv'; stdenv'.mkDerivation rec {
-  name = "status-react-build-env";
+in {
+  prod-build-android = statusMobile.prod-build;
 
-  buildInputs = with pkgs; [
-    clojure
-    leiningen
-    maven
-    watchman
-  ] ++ nodePkgBuildInputs
-    ++ lib.optional isDarwin cocoapods
-    ++ lib.optional (isDarwin && !platform.targetIOS) clang
-    ++ lib.optional (!isDarwin) gcc7
-    ++ lib.catAttrs "buildInputs" selectedSources;
-  shellHook = lib.concatStrings (lib.catAttrs "shellHook" selectedSources);
+  shell = with stdenv'; mkDerivation rec {
+    name = "status-react-build-env";
+
+    buildInputs = with pkgs;
+      nodePkgBuildInputs
+      ++ lib.optional isDarwin cocoapods
+      ++ lib.optional (isDarwin && !platform.targetIOS) clang
+      ++ lib.optional (!isDarwin) gcc7
+      ++ lib.catAttrs "buildInputs" selectedSources;
+    shellHook = lib.concatStrings (lib.catAttrs "shellHook" selectedSources);
+  };
 }

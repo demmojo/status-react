@@ -163,6 +163,7 @@ conan.cmake
 /.ran-setup
 /.nix-gcroots/
 **/node2nix/**/package.json
+/.m2~
 
 # modules
 status-modules/translations

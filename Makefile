@@ -117,13 +117,13 @@ prod-build:
 	sed -i'' "s|$(STATUS_REACT_HOME)|.|g" index.android.js && \
 	sed -i'' "s|$(STATUS_REACT_HOME)|.|g" index.ios.js
 
+prod-build-android: SHELL := /bin/sh
 prod-build-android: export TARGET_OS ?= android
 prod-build-android: export BUILD_ENV ?= prod
 prod-build-android:
-	@git clean -dxf -f android/app ./index.$(TARGET_OS).js && \
-	lein prod-build-android && \
-	node prepare-modules.js
-	sed -i'' "s|$(STATUS_REACT_HOME)|.|g" index.$(TARGET_OS).js
+	@git clean -dxf -f ./index.$(TARGET_OS).js && \
+	_NIX_RESULT_PATH=$(shell nix-build --argstr target-os $(TARGET_OS) --pure --no-out-link --show-trace -A prod-build-$(TARGET_OS) derivation.nix) && \
+	[ -n "$${_NIX_RESULT_PATH}" ] && cp -av $${_NIX_RESULT_PATH}/* .
 
 prod-build-ios: export TARGET_OS ?= ios
 prod-build-ios: export BUILD_ENV ?= prod
