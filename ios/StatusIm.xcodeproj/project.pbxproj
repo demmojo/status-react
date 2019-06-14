@@ -579,6 +579,7 @@
 		8077F6B47C6C491A9351E836 /* Inter-ThinItalic-BETA.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-ThinItalic-BETA.otf"; path = "../resources/fonts/Inter-ThinItalic-BETA.otf"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8B9A886A2CB448B1ABA0EB62 /* libc++.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		8DF2E1B89BF3F4725FA804F3 /* Pods-StatusImTests.pr.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StatusImTests.pr.xcconfig"; path = "Pods/Target Support Files/Pods-StatusImTests/Pods-StatusImTests.pr.xcconfig"; sourceTree = "<group>"; };
 		922C4CA61F4D5F8B0033C753 /* StatusIm.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = StatusIm.entitlements; path = StatusIm/StatusIm.entitlements; sourceTree = "<group>"; };
 		925C1F401F7B73B20063DFA0 /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseCore.framework; sourceTree = "<group>"; };
 		925C1F411F7B73B20063DFA0 /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseCoreDiagnostics.framework; sourceTree = "<group>"; };
@@ -617,6 +618,7 @@
 		C34D272C2212EBD500E98729 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		C34D272D2212EBF100E98729 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		C6B1215047604CD59A4C74D6 /* Inter-MediumItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-MediumItalic.otf"; path = "../resources/fonts/Inter-MediumItalic.otf"; sourceTree = "<group>"; };
+		C852560A9AA37E4495767DB2 /* Pods-StatusIm.pr.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StatusIm.pr.xcconfig"; path = "Pods/Target Support Files/Pods-StatusIm/Pods-StatusIm.pr.xcconfig"; sourceTree = "<group>"; };
 		CD48A32459B64E96843BB238 /* libRealmReact.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRealmReact.a; sourceTree = "<group>"; };
 		CD4A2C27D6D5473184DC1F7E /* Inter-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Bold.otf"; path = "../resources/fonts/Inter-Bold.otf"; sourceTree = "<group>"; };
 		CE4E31B21D8695250033ED64 /* Statusgo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Statusgo.framework; path = "../modules/react-native-status/ios/RCTStatus/Statusgo.framework"; sourceTree = "<group>"; };
@@ -932,6 +934,8 @@
 				38A44830EC5708E89387F641 /* Pods-StatusIm.release.xcconfig */,
 				064351D2FD901F8B6C9AE2A5 /* Pods-StatusImTests.debug.xcconfig */,
 				D489EE8D5F52DA10AC715727 /* Pods-StatusImTests.release.xcconfig */,
+				C852560A9AA37E4495767DB2 /* Pods-StatusIm.pr.xcconfig */,
+				8DF2E1B89BF3F4725FA804F3 /* Pods-StatusImTests.pr.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2390,7 +2394,7 @@
 		};
 		A64418C22265352C00C29794 /* PR */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 38A44830EC5708E89387F641 /* Pods-StatusIm.release.xcconfig */;
+			baseConfigurationReference = C852560A9AA37E4495767DB2 /* Pods-StatusIm.pr.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon$(BUNDLE_ID_SUFFIX)";
 				BUNDLE_ID_SUFFIX = "$(BUNDLE_ID_SUFFIX)";
@@ -2457,7 +2461,7 @@
 		};
 		A64418C32265352C00C29794 /* PR */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D489EE8D5F52DA10AC715727 /* Pods-StatusImTests.release.xcconfig */;
+			baseConfigurationReference = 8DF2E1B89BF3F4725FA804F3 /* Pods-StatusImTests.pr.xcconfig */;
 			buildSettings = {
 				BUNDLE_ID_SUFFIX = "$(BUNDLE_ID_SUFFIX)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
