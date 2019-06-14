@@ -4,6 +4,11 @@ import android.support.multidex.MultiDexApplication;
 
 import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
 import com.facebook.react.ReactApplication;
+import com.tradle.react.UdpSocketsModule;
+import com.peel.react.TcpSocketsModule;
+import com.bitgo.randombytes.RandomBytesPackage;
+import com.peel.react.rnos.RNOSModule;
+import com.chirag.RNMail.RNMail;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -53,6 +58,11 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
             Function<String, String> callRPC = statusPackage.getCallRPC();
             return Arrays.asList(
                     new MainReactPackage(),
+            new UdpSocketsModule(),
+            new TcpSocketsModule(),
+            new RandomBytesPackage(),
+            new RNOSModule(),
+            new RNMail(),
                     new RNMail(),
                     new RNFirebasePackage(),
                     new RNFirebaseMessagingPackage(),
