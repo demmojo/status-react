@@ -54,6 +54,7 @@ clean-nix: ##@prepare Remove complete nix setup
 watchman-clean:
 	watchman watch-del $(PWD)
 
+add-gcroots: SHELL := /bin/sh
 add-gcroots: ##@prepare Add Nix GC roots to avoid status-react expressions being garbage collected
 	scripts/add-gcroots.sh
 
