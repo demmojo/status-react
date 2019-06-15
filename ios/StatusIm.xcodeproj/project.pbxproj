@@ -60,6 +60,7 @@
 		B49246102225D86900DE94D5 /* mapview in Resources */ = {isa = PBXBuildFile; fileRef = B492460F2225D86900DE94D5 /* mapview */; };
 		B957A49EB0DE44D9A31CAF2D /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF2BF381BC7B4EB0887F0091 /* libRNSVG.a */; };
 		BA68A2377A20496EA737000D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E586E1B0E544F64AA9F5BD1 /* libz.tbd */; };
+		C348934122B477C000A475DE /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C90047FC1FC47AF50002B8EA /* libReact.a */; };
 		C93242561FE1C68C00FE7099 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C93242531FE1C68C00FE7099 /* libRCTAnimation.a */; };
 		CE4E31B31D8695250033ED64 /* Statusgo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4E31B21D8695250033ED64 /* Statusgo.framework */; };
 		D1786306E0184916B11F4C37 /* Inter-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = B2A38FC3D3954DE7B2B171F8 /* Inter-Medium.otf */; };
@@ -647,6 +648,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C348934122B477C000A475DE /* libReact.a in Frameworks */,
 				4C5F69C322815E6A00D26222 /* libRNShakeEvent.a in Frameworks */,
 				ABC194E5221009A800EB06E6 /* libRNLanguages.a in Frameworks */,
 				475D202F20B7450D00879A77 /* libRNFirebase.a in Frameworks */,
