@@ -60,7 +60,7 @@
                                          public?]}]
                               (and group-chat
                                    (not public?)))
-                            (:chats db))]
+                            (vals (:chats db)))]
     (apply fx/merge
            cofx
            (map
@@ -183,12 +183,15 @@
 (defn build-filter
   "Create a raw filter from a filter response"
   [web3 {:keys [filter-id
+                discovery?
                 chat-id] :as f}]
   (let [shh-filter (.newRawMessageFilter
                     (utils/shh web3)
                     (clj->js {:allowP2P true
                               :filterId filter-id})
-                    (partial receive-message chat-id))]
+                    ;; We set chat-id to nil on discovery as we have multiple people
+                    ;; sending on that topic
+                    (partial receive-message (if discovery? nil chat-id)))]
     (assoc f :filter shh-filter)))
 
 (defn- add-filters!

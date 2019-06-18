@@ -452,7 +452,10 @@
     ;; If we left the chat do nothing
     (when-not (and (group-chats.db/joined? my-public-key previous-chat)
                    (not (group-chats.db/joined? my-public-key new-chat)))
-      (transport.filters/load-members cofx members))))
+      (fx/merge
+       cofx
+       (transport.filters/upsert-group-chat-topics)
+       (transport.filters/load-members members)))))
 
 (fx/defn handle-membership-update
   "Upsert chat and receive message if valid"
