@@ -77,7 +77,9 @@
   [{:keys [from] :as message} current-public-key]
   (if (and (= from current-public-key)
            (not (system-message? message)))
-    (assoc message :outgoing true)
+    (assoc message
+           :outgoing true
+           :outgoing-status "sent")
     message))
 
 (defn build-desktop-notification
