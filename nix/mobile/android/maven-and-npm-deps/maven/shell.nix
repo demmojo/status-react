@@ -14,10 +14,13 @@ let
 in mkShell {
   buildInputs = [
     curl
-    gradle
+    gradle_4_10
     git
+    maven
   ];
   shellHook = ''
     export ANDROID_HOME=${licensedAndroidEnv}
+    # TODO: Add real sttaus-go dependency
+    export STATUS_GO_ANDROID_LIBDIR=/nix/store/iwmjl1wc90c5s7316nflzx9bp08vkg6q-status-go-v0.25.0-beta.1-android/lib
   '';
 }

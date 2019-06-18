@@ -30,7 +30,7 @@ let
     name = "gradle-install-android-archives-and-patched-npm-modules";
     inherit src;
     nativeBuildInputs = builtins.attrValues developmentNodePackages;
-    buildInputs = [ gradle bash file zlib ] ++ status-go.buildInputs-android;
+    buildInputs = [ gradle bash file zlib mavenLocalRepo react-native-deps ] ++ status-go.buildInputs-android;
     unpackPhase = ''
       runHook preUnpack
 
@@ -87,8 +87,8 @@ let
         patchMavenSource $targetGradleFile 'jcenter()' 'mavenLocal()'
         grep 'https://maven.google.com' $targetGradleFile > /dev/null && \
           substituteInPlace $targetGradleFile --replace 'https://maven.google.com' "$deriv"
-        grep '$rootDir/../node_modules/react-native/android' $1 > /dev/null && \
-          substituteInPlace $1 --replace '$rootDir/../node_modules/react-native/android' '${mavenLocalRepo}'
+        grep 'https://jitpack.io' $targetGradleFile > /dev/null && \
+          substituteInPlace $targetGradleFile --replace 'https://jitpack.io' "$deriv"
       }
 
       # Patch maven and google central repositories with our own local directories. This prevents the builder from downloading Maven artifacts
@@ -121,10 +121,12 @@ let
       androidEnvShellHook +
       status-go.shellHook-android + ''
       export REACT_NATIVE_DEPENDENCIES="$PWD/deps" # Use local writable deps, otherwise (for some unknown reason) gradle will fail copying directly from the nix store
-      ( cd android
-        LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${lib.makeLibraryPath [ zlib ]} \
-          gradle -Dmaven.repo.local=$PWD/.m2/repository --offline --no-build-cache --no-daemon react-native-android:installArchives
-      )
+      mavenRepo=$PWD/.m2/repository
+
+      pushd android
+      LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${lib.makeLibraryPath [ zlib ]} \
+        gradle -Dmaven.repo.local=$mavenRepo --offline --info --stacktrace --no-build-cache --no-daemon react-native-android:installArchives || exit
+      popd > /dev/null
     '';
     installPhase = ''
       rm -rf $out

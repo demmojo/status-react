@@ -10,7 +10,7 @@ let
   mavenAndNpmDeps = callPackage ./maven-and-npm-deps { inherit stdenvNoCC gradle bash zlib androidEnvShellHook localMavenRepoBuilder mkFilter nodeProjectName projectNodePackage developmentNodePackages status-go; };
 
   target-os = "android"; prod-build' = (prod-build { inherit projectNodePackage; });
-  release-android = callPackage ./actions/release-android.nix { inherit target-os gradle androidEnvShellHook mavenAndNpmDeps mkFilter status-go zlib; prod-build = prod-build'; };
+  release-android = callPackage ./actions/release-android.nix { inherit target-os gradle androidEnvShellHook mavenAndNpmDeps mkFilter nodejs status-go zlib; prod-build = prod-build'; };
 
   androidEnvShellHook = ''
     export JAVA_HOME="${openjdk}"

@@ -5,7 +5,7 @@ let
     rec {
       name = "boost";
       version = "1.63.0";
-      url = "https://github.com/react-native-community/boost-for-react-native/releases/download/v${version}-0/${name}_1_63_0.tar.gz";
+      url = "https://github.com/react-native-community/boost-for-react-native/releases/download/v${version}-0/${name}_${builtins.replaceStrings ["."] ["_"] version}.tar.gz";
       sha256 = "1hq5h6wzcr3sk1kccfk769d59swwxy1kvfhqd6p7786a1zsavdr6";
     }
     rec {

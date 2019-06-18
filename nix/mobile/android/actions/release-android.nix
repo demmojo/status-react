@@ -1,5 +1,5 @@
 { stdenv, stdenvNoCC, lib, target-os, callPackage,
-  mkFilter, bash, git, gradle, gradleOpts ? "", androidEnvShellHook, mavenAndNpmDeps, openjdk, prod-build, status-go, zlib }:
+  mkFilter, bash, git, gradle, gradleOpts ? "", androidEnvShellHook, mavenAndNpmDeps, nodejs, openjdk, prod-build, status-go, zlib }:
 
 let
   name = "release-${target-os}";
@@ -18,16 +18,19 @@ in stdenv.mkDerivation {
             "mobile_files"
             "scripts"
             "modules/react-native-status"
+            "packager"
+            "resources"
           ];
           dirsToExclude = [ ".git" ".svn" "CVS" ".hg" ".gradle" "build" "intermediates" "libs" "obj" ];
           filesToInclude = [ ".env" "STATUS_GO_VERSION" "VERSION" ];
           root = path;
         };
     };
-  buildInputs = [ bash git gradle openjdk ] ++ status-go.buildInputs-android;
+  buildInputs = [ bash git gradle nodejs openjdk ] ++ status-go.buildInputs-android;
   phases = [ "unpackPhase" "buildPhase" "installPhase" ];
   buildPhase =
-    androidEnvShellHook + ''
+    androidEnvShellHook +
+    status-go.shellHook-android + ''
     cp ${prod-build}/index*.js .
 
     # TODO: fix versionCode in android/app/build.gradle which has been hardcoded to 9999 by mavenAndNpmDeps
@@ -48,18 +51,7 @@ in stdenv.mkDerivation {
 
     cp -R ${mavenAndNpmDeps.deps}/node_modules/ .
     chmod -R u+w node_modules/react-native/
-    # # TODO: Remove this
-    substituteInPlace node_modules/react-native/ReactAndroid/release.gradle \
-      --replace "classpath += files(project" "//classpath += files(project"
-    # substituteInPlace node_modules/react-native/ReactAndroid/release.gradle \
-    #   --replace "classpath += files(android.bootClasspath)" "classpath += files(android.bootClasspath)
-    #     println \"state = \" +project.getConfigurations().getByName(\"compile\").state"
     chmod -R u+w node_modules/react-native-webview/
-#     substituteInPlace node_modules/react-native-webview/android/build.gradle \
-#       --replace "apply plugin: 'com.android.library'" "plugins {
-#     id 'com.android.application'" \
-#       --replace "apply plugin: 'kotlin-android'" "    id 'kotlin-android' version '1.3.11'
-# }"
     rm node_modules/react-native-webview/android/local.properties
     chmod -R u-w node_modules/react-native-webview/
     for d in `ls node_modules/react-native-*/android/build -d1`; do
@@ -69,15 +61,15 @@ in stdenv.mkDerivation {
       chmod u+w $d
     done
     chmod u+w node_modules/realm/android
-    #chmod -R u+w node_modules
 
     # STATUS_REACT_HOME=$PWD nix/mobile/reset-node_modules.sh "${mavenAndNpmDeps.deps}"
     # STATUS_REACT_HOME=$PWD nix/mobile/android/fix-node_modules-permissions.sh
 
     pushd android
+    #gradle build -Dmaven.repo.local='${mavenAndNpmDeps.deps}/.m2/repository' --offline --no-build-cache --no-daemon ${gradleOpts} || exit
     LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${lib.makeLibraryPath [ zlib ]} \
-      gradle assembleRelease -Dmaven.repo.local='${mavenAndNpmDeps.deps}/.m2/repository' --offline --no-build-cache --no-daemon ${gradleOpts}
-    popd
+      gradle --info --stacktrace assembleRelease -Dmaven.repo.local='${mavenAndNpmDeps.deps}/.m2/repository' --offline --no-build-cache --no-daemon ${gradleOpts} || exit
+    popd > /dev/null
   '';
   installPhase = ''
     mkdir -p $out
