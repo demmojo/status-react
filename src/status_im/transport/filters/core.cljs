@@ -184,14 +184,16 @@
   "Create a raw filter from a filter response"
   [web3 {:keys [filter-id
                 discovery?
+                negotiated?
                 chat-id] :as f}]
   (let [shh-filter (.newRawMessageFilter
                     (utils/shh web3)
                     (clj->js {:allowP2P true
                               :filterId filter-id})
-                    ;; We set chat-id to nil on discovery as we have multiple people
-                    ;; sending on that topic
-                    (partial receive-message (if discovery? nil chat-id)))]
+                    ;; We set chat-id to nil on discovery or negotiated
+                    ;; as we have multiple people sending on discovery and pairing
+                    ;; messages on negotiated
+                    (partial receive-message (if (or discovery? negotiated?) nil chat-id)))]
     (assoc f :filter shh-filter)))
 
 (defn- add-filters!
