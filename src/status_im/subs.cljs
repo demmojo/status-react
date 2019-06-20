@@ -1848,6 +1848,18 @@
    (:usernames account)))
 
 (re-frame/reg-sub
+ :ens/preferred-name
+ :<- [:account/account]
+ (fn [account]
+   (:preferred-name account)))
+
+(re-frame/reg-sub
+ :ens/show?
+ :<- [:account/account]
+ (fn [account]
+   (:show-name? account)))
+
+(re-frame/reg-sub
  :ens.registration/screen
  :<- [:ens/registration]
  :<- [:ens.stateofus/registrar]
@@ -1869,6 +1881,18 @@
      {:name       name
       :address    address
       :public-key public-key})))
+
+(re-frame/reg-sub
+ :ens.main/screen
+ :<- [:account/usernames]
+ :<- [:account/account]
+ :<- [:ens/preferred-name]
+ :<- [:ens/show?]
+ (fn [[names account preferred-name show?] _]
+   {:names          names
+    :account        account
+    :preferred-name preferred-name
+    :show?          (or show? false)}))
 
 ;;SIGNING =============================================================================================================
 

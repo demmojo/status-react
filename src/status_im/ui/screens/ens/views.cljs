@@ -51,15 +51,19 @@
             [status-im.ethereum.stateofus :as stateofus]
             [status-im.i18n :as i18n]
             [status-im.react-native.resources :as resources]
+            [status-im.ui.components.bottom-sheet.core :as bottom-sheet]
             [status-im.ui.components.checkbox.view :as checkbox]
             [status-im.ui.components.colors :as colors]
             [status-im.ui.components.common.common :as components.common]
             [status-im.ui.components.icons.vector-icons :as vector-icons]
             [status-im.ui.components.list.views :as list]
+            [status-im.ui.components.radio :as radio]
             [status-im.ui.components.react :as react]
             [status-im.ui.components.status-bar.view :as status-bar]
             [status-im.ui.components.toolbar.actions :as actions]
-            [status-im.ui.components.toolbar.view :as toolbar])
+            [status-im.ui.components.toolbar.view :as toolbar]
+            [status-im.ui.screens.chat.message.message :as message]
+            [status-im.ui.screens.profile.components.views :as profile.components])
 
   (:require-macros [status-im.utils.views :as views]))
 
@@ -205,9 +209,13 @@
    icon])
 
 (defn- input-action [{:keys [state custom-domain? username]}]
-  (if (= :connected state)
+  (case state
     ;; Already registered, just need to save the contact
+    :connected
     [:ens/save-username custom-domain? username]
+        ;; Need to set the public-key ?
+    :owned
+    [:ens/set-state username :connecting]
     [:ens/set-state username :registering]))
 
 (defn- disabled-input-action []
@@ -487,35 +495,77 @@
     [button {:on-press #(re-frame/dispatch [:navigate-to :ens-register])
              :label    (i18n/label :t/get-started)}]]])
 
-(defn- registered [names]
-  [react/scroll-view {:style {:flex 1}}
-   [react/view {:style {:flex 1 :margin-top 8}}
+(defn- name-item [{:keys [name action hide-chevron?]}]
+  (let [stateofus-username (stateofus/username name)
+        s                  (or stateofus-username name)]
+    [list/big-list-item {:text          s
+                         :subtext       (when stateofus-username stateofus/domain)
+                         :action-fn     action
+                         :icon          :main-icons/username
+                         :hide-chevron? hide-chevron?}]))
+
+(defn- name-list [names preferred-name bottom-shown?]
+  [react/view {:style {:margin-top 24 :height 320}}
+   [react/view {:style {:margin-horizontal 16 :align-items :center :justify-content :center}}
+    [react/nested-text
+     {:style {:color colors/gray}}
+     "Your messages are displayed to others with"
+     [{:style {:color colors/black :text-align :center}}
+      (str "\n@" preferred-name)]]]
+   [react/scroll-view
+    (for [name names]
+      (let [action #(do (re-frame/dispatch [:ens/save-preferred-name name])
+                        (reset! bottom-shown? false))]
+        ^{:key name}
+        [react/touchable-highlight {:on-press action}
+         [react/view {:style {:flex 1 :flex-direction :row :align-items :center :justify-content :center :margin-right 16}}
+          [react/view {:style {:flex 1}}
+           [name-item {:name name :hide-chevron? true :action action}]]
+          [radio/radio (= name preferred-name)]]]))]])
+
+(defn- registered [names {:keys [preferred-name address name public-key] :as account} show? bottom-shown?]
+  [react/scroll-view
+   [react/view {:style {:margin-top 8}}
     [list/big-list-item {:text      (i18n/label :t/ens-add-username)
                          :action-fn #(re-frame/dispatch [:navigate-to :ens-register])
                          :icon      :main-icons/add}]]
-   [react/view {:style {:margin-top 22}}
+   [react/view {:style {:margin-top 22 :margin-bottom 8}}
     [react/text {:style {:color colors/gray :margin-horizontal 16}}
      (i18n/label :t/ens-your-usernames)]
     (if (seq names)
       [react/view {:style {:margin-top 8}}
        (for [name names]
          ^{:key name}
-         [react/view
-          (let [stateofus-username (stateofus/username name)
-                s                  (or stateofus-username name)]
-            [list/big-list-item {:text      s
-                                 :subtext   (when stateofus-username stateofus/domain)
-                                 :action-fn #(re-frame/dispatch [:ens/navigate-to-name name])
-                                 :icon      :main-icons/username}])])]
+         [name-item {:name name :action #(re-frame/dispatch [:ens/navigate-to-name name])}])]
       [react/text {:style {:color colors/gray :font-size 15}}
-       (i18n/label :t/ens-no-usernames)])]])
+       (i18n/label :t/ens-no-usernames)])]
+   [react/view {:style {:padding-top 22 :border-color colors/gray-light :border-top-width 1}}
+    [react/text {:style {:color colors/gray :margin-horizontal 16}}
+     (i18n/label :t/ens-chat-settings)]
+    (when (seq names)
+      [profile.components/settings-item {:label-kw  :ens-primary-username
+                                         :value     preferred-name
+                                         :action-fn #(reset! bottom-shown? true)}])
+    [profile.components/settings-switch-item {:label-kw  :ens-show-username
+                                              :action-fn #(re-frame/dispatch [:ens/switch-show-username])
+                                              :value     show?}]]
+   (let [message {:username name :from public-key :last-in-group? true :display-username? true :display-photo? true
+                  :content {:text "Hey"} :content-type "text/plain" :timestamp-str "9:41 AM"}]
+     [message/message-body message
+      [message/text-message message]])
+   [bottom-sheet/bottom-sheet
+    {:show?          @bottom-shown?
+     :on-cancel      #(reset! bottom-shown? false)
+     :content        #(name-list names preferred-name bottom-shown?)
+     :content-height 320}]])
 
 (views/defview main []
-  (views/letsubs [names [:account/usernames]]
-    [react/view {:style {:flex 1}}
-     [status-bar/status-bar {:type :main}]
-     [toolbar/simple-toolbar
-      (i18n/label :t/ens-usernames)]
-     (if (seq names)
-       [registered names]
-       [welcome])]))
+  (views/letsubs [{:keys [names account preferred-name show?]} [:ens.main/screen]]
+    (let [bottom-shown? (reagent/atom false)]
+      [react/view {:style {:flex 1}}
+       [status-bar/status-bar {:type :main}]
+       [toolbar/simple-toolbar
+        (i18n/label :t/ens-usernames)]
+       (if (seq names)
+         [registered names account show? bottom-shown?]
+         [welcome])])))
