@@ -215,6 +215,12 @@
    :discovery? discovery
    :topic topic})
 
+(fx/defn set-filters-initialized [{:keys [db]}]
+  {:db (assoc db :filters/initialized true)})
+
+(defn filters-initialized? [db]
+  (:filters/initialized db))
+
 (fx/defn handle-filters-added
   "Called every time we load a filter from statusgo, either from explicit call
   or through signals. It stores the filter in the db and upsert the relevant
@@ -225,7 +231,8 @@
             (add-filters-to-db filters)
             (upsert-group-chat-topics)
             (when (new-filters? db filters)
-              (mailserver/process-next-messages-request))))
+              (mailserver/process-next-messages-request))
+            (set-filters-initialized)))
 
 (fx/defn handle-filters-removed
   "Called when we remove a filter from status-go, it will update the mailserver
@@ -277,7 +284,8 @@
 (fx/defn load-chat
   "Check if a filter already exists for that chat, otherw load the filter"
   [{:keys [db]} chat-id]
-  (when-not (chat-loaded? db chat-id)
+  (when (and (filters-initialized? db)
+             (not (chat-loaded? db chat-id)))
     (let [chat (get-in db [:chats chat-id])]
       (load-filter-fx (:web3 db) (->filter-request chat)))))
 
