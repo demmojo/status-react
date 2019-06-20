@@ -131,12 +131,9 @@ class WalletButton(TabButton):
 
     def click(self):
         self.driver.info('Tap on %s' % self.name)
-        from views.wallet_view import SetUpButton, SendTransactionButton
-        for _ in range(3):
-            self.find_element().click()
-            if SetUpButton(self.driver).is_element_displayed() or SendTransactionButton(
-                    self.driver).is_element_displayed():
-                return self.navigate()
+        from views.wallet_view import WalletAccountsMoreOptions
+        self.click_until_presence_of_element(WalletAccountsMoreOptions(self.driver))
+        return self.navigate()
 
 
 class ProfileButton(TabButton):

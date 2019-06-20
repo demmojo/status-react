@@ -181,6 +181,12 @@ class BackupRecoveryPhrase(BaseButton):
         return ProfileView(self.driver)
 
 
+class WalletAccountsMoreOptions(BaseButton):
+    def __init__(self,driver):
+        super(WalletAccountsMoreOptions, self).__init__(driver)
+        self.locator = self.Locator.accessibility_id('accounts-more-options')
+
+
 class WalletView(BaseView):
     def __init__(self, driver):
         super(WalletView, self).__init__(driver)
@@ -209,6 +215,9 @@ class WalletView(BaseView):
         self.total_amount_text = TotalAmountText(self.driver)
         self.currency_text = CurrencyText(self.driver)
         self.backup_recovery_phrase = BackupRecoveryPhrase(self.driver)
+
+        # elements for multiaccount
+        self.wallet_accounts_more_options = WalletAccountsMoreOptions(self.driver)
 
     def get_usd_total_value(self):
         import re

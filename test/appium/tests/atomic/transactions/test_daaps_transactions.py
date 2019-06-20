@@ -218,7 +218,7 @@ class TestTransactionDApp(SingleDeviceTestCase):
         singin_view = SignInView(self.driver)
         home_view = singin_view.create_user()
         wallet = home_view.wallet_button.click()
-        wallet.set_up_wallet()
+        #wallet.set_up_wallet()
         wallet_address = wallet.get_wallet_address()
         home_view = wallet.get_back_to_home_view()
         status_test_dapp = home_view.open_status_test_dapp()
