@@ -38,9 +38,9 @@ let
       chmod u+w .
 
       # Copy fresh RN maven dependencies and make them writable, otherwise Gradle copy fails
-      mkdir -p ./.m2/repository
-      cp -a ${react-native-deps}/deps ./deps
-      cp -a ${mavenLocalRepo}/. ./.m2/repository
+      mkdir -p $NIX_BUILD_TOP/.m2/repository
+      cp -a ${react-native-deps}/deps $NIX_BUILD_TOP/deps
+      cp -a ${mavenLocalRepo}/. $NIX_BUILD_TOP/.m2/repository
 
       # Copy fresh node_modules
       rm -rf ./node_modules
@@ -100,7 +100,7 @@ let
       # Patch prepareJSC so that it doesn't try to download from registry
       substituteInPlace node_modules/react-native/ReactAndroid/build.gradle \
         --replace 'prepareJSC(dependsOn: downloadJSC)' 'prepareJSC(dependsOn: createNativeDepsDirectories)' \
-        --replace 'def jscTar = tarTree(downloadJSC.dest)' 'def jscTar = tarTree(new File("../../../deps/${jsc-filename}.tar.gz"))'
+        --replace 'def jscTar = tarTree(downloadJSC.dest)' "def jscTar = tarTree(new File(\"$NIX_BUILD_TOP/deps/${jsc-filename}.tar.gz\"))"
 
       # We don't want to include the scripts directory, as this would invalidate the Nix cache build every time an unrelated script changed. In any case, the version shouldn't matter for this build.
       substituteInPlace android/app/build.gradle \
@@ -120,24 +120,27 @@ let
     buildPhase = 
       androidEnvShellHook +
       status-go.shellHook-android + ''
-      export REACT_NATIVE_DEPENDENCIES="$PWD/deps" # Use local writable deps, otherwise (for some unknown reason) gradle will fail copying directly from the nix store
-      mavenRepo=$PWD/.m2/repository
+      export HOME=$NIX_BUILD_TOP
+      export REACT_NATIVE_DEPENDENCIES="$NIX_BUILD_TOP/deps" # Use local writable deps, otherwise (for some unknown reason) gradle will fail copying directly from the nix store
+      mavenRepo=$NIX_BUILD_TOP/.m2/repository
 
       pushd android
+      # This generates the react-native-android binaries under node_modules/react-native/android
       LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${lib.makeLibraryPath [ zlib ]} \
-        gradle -Dmaven.repo.local=$mavenRepo --offline --info --stacktrace --no-build-cache --no-daemon react-native-android:installArchives || exit
+        gradle -Dmaven.repo.local=$mavenRepo --offline --stacktrace react-native-android:installArchives || exit
       popd > /dev/null
     '';
     installPhase = ''
       rm -rf $out
-      mkdir -p $out
+      mkdir -p $out/project
       # TODO: maybe node_modules/react-native/ReactAndroid/build/{intermediates,tmp,generated} can be discarded?
-      cp -R .m2 android/ node_modules/ $out
+      cp -R $NIX_BUILD_TOP/.m2 $HOME/.gradle $out
+      cp -R android/ node_modules/ $out/project
 
       # Patch prepareJSC so that it doesn't subsequently try to build NDK libs
-      substituteInPlace $out/node_modules/react-native/ReactAndroid/build.gradle \
+      substituteInPlace $out/project/node_modules/react-native/ReactAndroid/build.gradle \
         --replace 'packageReactNdkLibs(dependsOn: buildReactNdkLib, ' 'packageReactNdkLibs(' \
-        --replace '../../../deps/${jsc-filename}.tar.gz' '${react-native-deps}/deps/${jsc-filename}.tar.gz' 
+        --replace "$NIX_BUILD_TOP/deps/${jsc-filename}.tar.gz" '${react-native-deps}/deps/${jsc-filename}.tar.gz' 
     '';
 
     # The ELF types are incompatible with the host platform, so let's not even try

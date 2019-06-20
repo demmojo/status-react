@@ -7,9 +7,8 @@
 #  3. add each one to maven-inputs.txt
 
 GIT_ROOT=$(cd "${BASH_SOURCE%/*}" && git rev-parse --show-toplevel)
-_current_dir=$(cd "${BASH_SOURCE%/*}" && pwd)
-_repo_path='.m2~'
-_gradle_opts="--console plain --no-build-cache --no-daemon"
+current_dir=$(cd "${BASH_SOURCE%/*}" && pwd)
+gradle_opts="--console plain"
 tmp_pom_filename=$(mktemp --tmpdir fetch-maven-deps-XXXX.pom)
 deps_file_path=$(mktemp --tmpdir fetch-maven-deps-XXXX-deps.txt)
 
@@ -87,12 +86,20 @@ function determineArtifactUrl() {
 
 # Executes a gradle dependencies command and returns the output package IDs
 function runGradleDepsCommand() {
-  echo "Computing maven dependencies with \`gradle $1 $_gradle_opts\`..." > /dev/stderr
+  echo "Computing maven dependencies with \`gradle $1 $gradle_opts\`..." > /dev/stderr
+  # Add a comment header with the command we're running (useful for debugging)
   echo "# $1"
 
-  gradle $1 $_gradle_opts \
+  # Run the gradle command and:
+  # - remove lines that end with (*) or (n)
+  # - keep only lines that start with \--- or +---
+  # - remove lines that refer to a project
+  # - extract the package name and version, ignoring version range indications, such as in `com.google.android.gms:play-services-ads:[15.0.1,16.0.0) -> 15.0.1`
+  gradle $1 $gradle_opts \
+    | grep --invert-match -E ".+ \([\*n]\)$" \
     | grep -e "[\\\+]---" \
-    | sed -E "s;.*--- ([^ ]+).*;\1;"
+    | grep --invert-match -e "--- project :" \
+    | sed -E "s;.*[\\\+]--- ([^ ]+:)([^ ]+ -> )?([^ ]+).*;\1\3;"
 }
 
 mvn_tmp_repo=$(mktemp -d)
@@ -100,11 +107,12 @@ trap "rm -rf $mvn_tmp_repo $tmp_pom_filename $deps_file_path" ERR EXIT HUP INT
 
 pushd $GIT_ROOT/android > /dev/null
 
-projects=$(gradle projects $_gradle_opts 2>&1 \
+projects=$(gradle projects $gradle_opts 2>&1 \
             | grep "Project ':" \
             | sed -E "s;^.--- Project '(\:[a-zA-Z0-9\-]+)';\1;")
 
 echo -n > $deps_file_path
+# TODO: try to limit unnecessary dependencies brought in by passing e.g. `--configuration releaseCompileClasspath` to the `gradle *:dependencies` command
 runGradleDepsCommand 'buildEnvironment' >> $deps_file_path
 for project in ${projects[@]}; do
   runGradleDepsCommand "${project}:buildEnvironment" >> $deps_file_path
@@ -113,11 +121,11 @@ done
 
 popd > /dev/null
 
-# Read the deps file into memory, sort and getting rid of comments and duplicates
+# Read the deps file into memory, sorting and getting rid of comments, project names and duplicates
 IFS=$'\n' deps=( $(cat $deps_file_path \
-                   | sed -E 's;#.*$;;' \
-                   | sed -E 's;^[a-z]+$;;' \
-                   | sed -E 's;^:?[^:]+$;;' \
+                   | grep --invert-match -E '^#.*$' \
+                   | grep --invert-match -E '^[a-z]+$' \
+                   | grep --invert-match -E '^:?[^:]+$' \
                    | sort -uV) )
 unset IFS
 rm -f $deps_file_path

@@ -1,5 +1,5 @@
 { stdenv, stdenvNoCC, lib, target-os, callPackage,
-  mkFilter, bash, git, gradle, gradleOpts ? "", androidEnvShellHook, mavenAndNpmDeps, nodejs, openjdk, prod-build, status-go, zlib }:
+  mkFilter, bash, git, gradle, gradleOpts ? "", androidEnvShellHook, mavenAndNpmDeps, nodejs, openjdk, prod-build, status-go, strace }:
 
 let
   name = "release-${target-os}";
@@ -14,7 +14,7 @@ in stdenv.mkDerivation {
       filter =
         mkFilter {
           dirRootsToInclude = [ 
-            #"android/app"
+            #"android/app/src/release"
             "mobile_files"
             "scripts"
             "modules/react-native-status"
@@ -26,30 +26,39 @@ in stdenv.mkDerivation {
           root = path;
         };
     };
-  buildInputs = [ bash git gradle nodejs openjdk ] ++ status-go.buildInputs-android;
+  buildInputs = [ bash git gradle nodejs openjdk strace ] ++ status-go.buildInputs-android;
   phases = [ "unpackPhase" "buildPhase" "installPhase" ];
   buildPhase =
     androidEnvShellHook +
     status-go.shellHook-android + ''
-    cp ${prod-build}/index*.js .
+    export HOME=$NIX_BUILD_TOP
+    export STATUS_REACT_HOME=$PWD
+    export PATH=$STATUS_REACT_HOME/node_modules/.bin:$PATH
+    export REACT_NATIVE_DEPENDENCIES="${mavenAndNpmDeps.react-native-deps}/deps"
+
+    cp -a --no-preserve=ownership ${mavenAndNpmDeps.deps}/.gradle $HOME
+    chmod -R u+w $HOME/.gradle
+    cp -a --no-preserve=ownership ${prod-build}/index*.js .
 
     # TODO: fix versionCode in android/app/build.gradle which has been hardcoded to 9999 by mavenAndNpmDeps
     # mv android/app/build.gradle android/app/build.gradle~
-    cp -Rf ${mavenAndNpmDeps.deps}/android/ .
-    chmod -R u+w android/
+    cp -a --no-preserve=ownership ${mavenAndNpmDeps.deps}/project/android/ .
+    chmod u+w android/app
+    chmod -R u+w android/.gradle
     # mv android/app/build.gradle~ android/app/build.gradle
     
     ln -sf mobile_files/package.json.orig package.json
     ln -sf mobile_files/metro.config.js metro.config.js
 
     substituteInPlace android/gradle.properties \
-      --replace 'STATUS_RELEASE_STORE_FILE=~/.gradle/status-im.keystore' 'STATUS_RELEASE_STORE_FILE=.gradle/status-im.keystore'
+      --replace 'org.gradle.jvmargs=' 'org.gradle.daemon=false
+org.gradle.jvmargs='
     patchShebangs scripts
     scripts/generate-keystore.sh
 
-    #ln -sf ${mavenAndNpmDeps.deps}/node_modules/
+    #ln -sf ${mavenAndNpmDeps.deps}/project/node_modules/
 
-    cp -R ${mavenAndNpmDeps.deps}/node_modules/ .
+    cp -a --no-preserve=ownership ${mavenAndNpmDeps.deps}/project/node_modules/ .
     chmod -R u+w node_modules/react-native/
     chmod -R u+w node_modules/react-native-webview/
     rm node_modules/react-native-webview/android/local.properties
@@ -62,13 +71,21 @@ in stdenv.mkDerivation {
     done
     chmod u+w node_modules/realm/android
 
-    # STATUS_REACT_HOME=$PWD nix/mobile/reset-node_modules.sh "${mavenAndNpmDeps.deps}"
+    # OPTIONAL: There's no need to forward debug ports for a release build, just disable it
+    substituteInPlace node_modules/realm/android/build.gradle \
+      --replace 'compileTask.dependsOn forwardDebugPort' 'compileTask'
+
+    # mkdir -p /build/.gradle/wrapper/dists/gradle-4.10.2-bin/cghg6c4gf4vkiutgsab8yrnwv/gradle-4.10.2
+    # cp -R ${gradle}/bin ${gradle}/lib/gradle/lib /build/.gradle/wrapper/dists/gradle-4.10.2-bin/cghg6c4gf4vkiutgsab8yrnwv/gradle-4.10.2
+
+    # STATUS_REACT_HOME=$PWD nix/mobile/reset-node_modules.sh "${mavenAndNpmDeps.deps}/project"
     # STATUS_REACT_HOME=$PWD nix/mobile/android/fix-node_modules-permissions.sh
 
     pushd android
-    #gradle build -Dmaven.repo.local='${mavenAndNpmDeps.deps}/.m2/repository' --offline --no-build-cache --no-daemon ${gradleOpts} || exit
     LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${lib.makeLibraryPath [ zlib ]} \
-      gradle --info --stacktrace assembleRelease -Dmaven.repo.local='${mavenAndNpmDeps.deps}/.m2/repository' --offline --no-build-cache --no-daemon ${gradleOpts} || exit
+      gradle --stacktrace assembleRelease -Dmaven.repo.local='${mavenAndNpmDeps.deps}/.m2/repository' --offline --no-build-cache --no-daemon ${gradleOpts} || exit
+      #strace -e trace=creat,open,openat,fstat,lstat,stat -f gradle -info --stacktrace assembleRelease -Dmaven.repo.local='${mavenAndNpmDeps.deps}/.m2/repository' --no-build-cache --no-daemon ${gradleOpts} || exit
+      #strace -s 2000 -vv -r -f gradle --stacktrace assembleRelease -Dmaven.repo.local='${mavenAndNpmDeps.deps}/.m2/repository' --offline --no-daemon ${gradleOpts} || exit
     popd > /dev/null
   '';
   installPhase = ''
