@@ -393,6 +393,7 @@
 (fx/defn process-next-messages-request
   [{:keys [db now] :as cofx}]
   (when (and
+         (:filters/initialized db)
          (mobile-network-utils/syncing-allowed? cofx)
          (not (:mailserver/current-request db)))
     (when-let [mailserver (get-mailserver-when-ready cofx)]
