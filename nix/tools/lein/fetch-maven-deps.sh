@@ -25,5 +25,4 @@ rm -rf ./${_repo_path}
 $_lein_cmd 2>&1 \
   | grep Retrieving \
   | filter clojars https://repo.clojars.org/ \
-  | filter central https://repo1.maven.org/maven2/ \
-  | sort -u
+  | filter central https://repo1.maven.org/maven2/

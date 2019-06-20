@@ -1,5 +1,5 @@
 { stdenv, stdenvNoCC, lib, target-os, callPackage,
-  mkFilter, bash, git, gradle, gradleOpts ? "", androidEnvShellHook, mavenAndNpmDeps, nodejs, openjdk, prod-build, status-go, strace }:
+  mkFilter, bash, git, gradle, gradleOpts ? "", androidEnvShellHook, mavenAndNpmDeps, nodejs, openjdk, prod-build, status-go, zlib, strace }:
 
 let
   name = "release-${target-os}";
@@ -74,6 +74,8 @@ org.gradle.jvmargs='
     # OPTIONAL: There's no need to forward debug ports for a release build, just disable it
     substituteInPlace node_modules/realm/android/build.gradle \
       --replace 'compileTask.dependsOn forwardDebugPort' 'compileTask'
+    substituteInPlace android/gradlew \
+      --replace 'gradle --no-build-cache' 'gradle --stacktrace -Dmaven.repo.local='${mavenAndNpmDeps.deps}/.m2/repository' --offline --no-build-cache --no-daemon ${gradleOpts}'
 
     # mkdir -p /build/.gradle/wrapper/dists/gradle-4.10.2-bin/cghg6c4gf4vkiutgsab8yrnwv/gradle-4.10.2
     # cp -R ${gradle}/bin ${gradle}/lib/gradle/lib /build/.gradle/wrapper/dists/gradle-4.10.2-bin/cghg6c4gf4vkiutgsab8yrnwv/gradle-4.10.2

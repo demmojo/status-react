@@ -66,6 +66,10 @@ function determineArtifactUrl() {
 
   local path=$(getPath "${tokens[@]}")
   if tryGetPOMFromURL "$googleUrl/$path"; then
+    if [ "$path" = "com/google/firebase/firebase-analytics/16.0.3/firebase-analytics-16.0.3" ]; then
+      # For some reason maven doesn't detect the correct version of firebase-analytics so we have to hardcode it
+      echo "https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-analytics/15.0.2/firebase-analytics-15.0.2"
+    fi
     echo "$googleUrl/$path"
     return
   elif tryGetPOMFromURL "$jcenterUrl/$path"; then

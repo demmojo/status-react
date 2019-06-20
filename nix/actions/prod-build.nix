@@ -18,7 +18,7 @@ in stdenv.mkDerivation {
         mkFilter {
           dirRootsToInclude = [ 
             "components/src" "react-native/src/cljsjs" "react-native/src/mobile" "src" "env/prod" "prod" # Taken from project.clj :profiles :prod :cljsbuild :builds :android :source-paths
-            "resources" "status-modules"
+            "resources" "status-modules/cljs" "status-modules/resources"
           ];
           dirsToExclude = [ ".git" ".svn" "CVS" ".hg" ".gradle" "build" "intermediates" "libs" "obj" ];
           filesToInclude = [ "build.clj" "externs.js" "project.clj" "prepare-modules.js" ];

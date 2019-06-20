@@ -7,8 +7,13 @@ let
     clojars = "https://repo.clojars.org";
     fabric-io = "https://maven.fabric.io/public";
     google = "https://dl.google.com/dl/android/maven2";
+    gradle = "http://repo.gradle.org/gradle/libs-releases-local";
+    java = "https://maven.java.net/content/repositories/releases";
     jcenter = "https://jcenter.bintray.com";
+    jitpack = "https://jitpack.io";
     maven = "https://repo1.maven.org/maven2";
+    sonatypeSnapshots = "https://oss.sonatype.org/content/repositories/snapshots";
+    sonatypePublicGrid = "https://repository.sonatype.org/content/groups/sonatype-public-grid";
   };
 
 in {
@@ -2178,6 +2183,19 @@ in {
       sha256 = "1k1hphipl6r482v9g5lj7k7hk805a7dygbzqn8b3pw4n007im9lg";
     };
   };
+  "https://repo1.maven.org/maven2/org/clojure/tools.reader/1.2.1/tools.reader-1.2.1" = {
+    host = repositories.maven;
+    path = "org/clojure/tools.reader/1.2.1/tools.reader-1.2.1";
+    type = "jar";
+    pom = {
+      sha1 = "6c5c027953ae14c36f79a4567d424ddd7a13bbab";
+      sha256 = "1yyxa20a9bc2v2n2is0kr2n6ry1qm9mkzkhki22n51rqysdka94s";
+    };
+    jar = {
+      sha1 = "b5009154208e51b76cebafa3b458e1f8a064adc9";
+      sha256 = "1v2kdmn9cvjiyidp6z829w7fk6xaa2wp1x8v85lnzsxqg2a7chgn";
+    };
+  };
   "https://repo1.maven.org/maven2/org/clojure/tools.reader/1.3.0/tools.reader-1.3.0" = {
     host = repositories.maven;
     path = "org/clojure/tools.reader/1.3.0/tools.reader-1.3.0";
@@ -2804,6 +2822,19 @@ in {
     jar = {
       sha1 = "b3763f399395938eb66f0b125f8d9559976bf168";
       sha256 = "1a051xqn2k4gjnb9lvs6ma3qwdx14vqnq32z7qpqda6h3cyymvq5";
+    };
+  };
+  "https://repo.clojars.org/com/taoensso/encore/2.94.0/encore-2.94.0" = {
+    host = repositories.clojars;
+    path = "com/taoensso/encore/2.94.0/encore-2.94.0";
+    type = "jar";
+    pom = {
+      sha1 = "73fed0c1c6bb76edf667bda84322dd41e478615c";
+      sha256 = "1d87b3g6lpr6nnvyhlsx3zw6wm1ccmh3lqzi13q4y34cp0grcmdf";
+    };
+    jar = {
+      sha1 = "753c6e5510eaa9794d0bb092dd7c1f2f862a80e8";
+      sha256 = "172f96w54311ckj6grs9kz0ddxgdqgdngqmzjg77qw5r3rsixyyh";
     };
   };
   "https://repo.clojars.org/com/taoensso/sente/1.11.0/sente-1.11.0" = {
