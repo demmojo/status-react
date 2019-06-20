@@ -12,6 +12,12 @@
             [status-im.utils.fx :as fx]
             [taoensso.timbre :as log]))
 
+(defn has-paired-installations? [cofx]
+  (->>
+   (get-in cofx [:db :pairing/installations])
+   vals
+   (some :enabled?)))
+
 (defn discovery-topic-hash [] (transport.utils/get-topic constants/contact-discovery))
 
 (defprotocol StatusMessage
@@ -101,7 +107,8 @@
 
         :user-message
         (fx/merge cofx
-                  (send-direct-message current-public-key nil this)
+                  (when (has-paired-installations? cofx)
+                    (send-direct-message current-public-key nil this))
                   (send-with-pubkey params)))))
   (receive [this chat-id signature timestamp cofx]
     (let [received-message-fx {:chat-received-message/add-fx

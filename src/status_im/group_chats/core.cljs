@@ -5,6 +5,7 @@
             [clojure.string :as string]
             [re-frame.core :as re-frame]
             [status-im.accounts.model :as accounts.model]
+            [status-im.pairing.core :as pairing]
             [status-im.chat.models :as models.chat]
             [status-im.chat.models.message :as models.message]
             [status-im.contact.core :as models.contact]
@@ -121,9 +122,15 @@
                                     removed-members)
          {:keys [web3]} (:db cofx)
          current-public-key (accounts.model/current-public-key cofx)
+         members-allowed (filter
+                          (fn [pk]
+                            (if (= pk current-public-key)
+                              (pairing/has-paired-installations? cofx)
+                              true))
+                          members)
          destinations (map (fn [member]
                              {:public-key member})
-                           members)]
+                           members-allowed)]
      (fx/merge
       cofx
       {:shh/send-group-message
