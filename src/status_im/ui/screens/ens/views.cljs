@@ -509,7 +509,7 @@
    [react/view {:style {:margin-horizontal 16 :align-items :center :justify-content :center}}
     [react/nested-text
      {:style {:color colors/gray}}
-     "Your messages are displayed to others with"
+     (i18n/label :t/ens-displayed-with)
      [{:style {:color colors/black :text-align :center}}
       (str "\n@" preferred-name)]]]
    [react/scroll-view
@@ -550,7 +550,7 @@
                                               :action-fn #(re-frame/dispatch [:ens/switch-show-username])
                                               :value     show?}]]
    (let [message {:username name :from public-key :last-in-group? true :display-username? true :display-photo? true
-                  :content {:text "Hey"} :content-type "text/plain" :timestamp-str "9:41 AM"}]
+                  :content {:text (i18n/label :t/ens-test-message)} :content-type "text/plain" :timestamp-str "9:41 AM"}]
      [message/message-body message
       [message/text-message message]])
    [bottom-sheet/bottom-sheet

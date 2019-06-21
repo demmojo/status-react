@@ -1141,6 +1141,8 @@
     "ens-show-username": "Show my ENS username in chats",
     "ens-understand": "I understand that my wallet address will be publicly connected to my username.",
     "ens-transaction-pending": "Transaction pending...",
+    "ens-test-message": "Hey",
+    "ens-displayed-with": "Your messages are displayed to others with",
     "add-account" : "Add account",
     "add-an-account" : "Add an account",
     "back-up-your-seed-phrase" : "Back up your seed phrase",
