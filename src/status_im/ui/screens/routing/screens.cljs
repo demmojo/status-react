@@ -83,6 +83,7 @@
    :hardwallet-success               hardwallet.success/hardwallet-success
    :home                             home/home-wrapper
    :chat                             chat/chat
+   :select-chat                      chat/select-chat
    :profile                          profile.contact/profile
    :new                              add-new/add-new
    :new-chat                         new-chat/new-chat
