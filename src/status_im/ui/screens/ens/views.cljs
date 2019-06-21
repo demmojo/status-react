@@ -504,25 +504,26 @@
                          :hide-chevron? hide-chevron?}]))
 
 (defn- name-list [names preferred-name]
-  [react/view {:style {:margin-top 24 :height 320}}
+  [react/view {:style {:margin-top 16}}
    [react/view {:style {:margin-horizontal 16 :align-items :center :justify-content :center}}
     [react/nested-text
      {:style {:color colors/gray}}
      (i18n/label :t/ens-displayed-with)
      [{:style {:color colors/black :text-align :center}}
       (str "\n@" preferred-name)]]]
-   [react/scroll-view
-    (for [name names]
-      (let [action #(do (re-frame/dispatch [:ens/save-preferred-name name])
-                        (re-frame/dispatch [:bottom-sheet/hide-sheet]))]
-        ^{:key name}
-        [react/touchable-highlight {:on-press action}
-         [react/view {:style {:flex 1 :flex-direction :row :align-items :center :justify-content :center :margin-right 16}}
-          [react/view {:style {:flex 1}}
-           [name-item {:name name :hide-chevron? true :action action}]]
-          [radio/radio (= name preferred-name)]]]))]])
+   [react/view {:style {:margin-top 8}}
+    [react/scroll-view
+     (for [name names]
+       (let [action #(do (re-frame/dispatch [:ens/save-preferred-name name])
+                         (re-frame/dispatch [:bottom-sheet/hide-sheet]))]
+         ^{:key name}
+         [react/touchable-highlight {:on-press action}
+          [react/view {:style {:flex 1 :flex-direction :row :align-items :center :justify-content :center :margin-right 16}}
+           [react/view {:style {:flex 1}}
+            [name-item {:name name :hide-chevron? true :action action}]]
+           [radio/radio (= name preferred-name)]]]))]]])
 
-(defn- registered [names {:keys [preferred-name address name public-key] :as account} show?]
+(defn- registered [names {:keys [preferred-name address public-key name]} show?]
   [react/view {:style {:flex 1}}
    [react/scroll-view
     [react/view {:style {:margin-top 8}}
@@ -547,12 +548,14 @@
                                           :value     preferred-name
                                           :action-fn #(re-frame/dispatch [:bottom-sheet/show-sheet
                                                                           {:content         (fn [] (name-list names preferred-name))
-                                                                           :content-height  320}])}])
+                                                                           :content-height  (+ 72 (* (min 4 (count names)) 64))}])}])
      [profile.components/settings-switch-item {:label-kw  :ens-show-username
                                                :action-fn #(re-frame/dispatch [:ens/switch-show-username])
                                                :value     show?}]]
-    (let [message {:username name :from public-key :last-in-group? true :display-username? true :display-photo? true
-                   :content {:text (i18n/label :t/ens-test-message)} :content-type "text/plain" :timestamp-str "9:41 AM"}]
+    (let [message (merge {:from public-key :last-in-group? true :display-username? true :display-photo? true :username name
+                          :content {:text (i18n/label :t/ens-test-message)} :content-type "text/plain" :timestamp-str "9:41 AM"}
+                         (when show?
+                           {:name preferred-name}))]
       [message/message-body message
        [message/text-message message]])]])
 

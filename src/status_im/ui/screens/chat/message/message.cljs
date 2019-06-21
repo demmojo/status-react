@@ -211,9 +211,9 @@
           (if outgoing-status
             [text-status outgoing-status]))))))
 
-(defview message-author-name [from message-username]
+(defview message-author-name [from message-username name]
   (letsubs [username [:contacts/contact-name-by-identity from]]
-    (chat.utils/format-author from (or username message-username) style/message-author-name)))
+    (chat.utils/format-author from (or username message-username) style/message-author-name name)))
 
 (defn message-body
   [{:keys [last-in-group?
@@ -222,7 +222,8 @@
            from
            outgoing
            modal?
-           username] :as message} content]
+           username
+           name] :as message} content]
   [react/view (style/group-message-wrapper message)
    [react/view (style/message-body message)
     (when display-photo?
@@ -233,7 +234,7 @@
            [photos/member-photo from]]])])
     [react/view (style/group-message-view outgoing)
      (when display-username?
-       [message-author-name from username])
+       [message-author-name from username name])
      [react/view {:style (style/timestamp-content-wrapper outgoing)}
       content]]]
    [react/view (style/delivery-status outgoing)
