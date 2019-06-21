@@ -1865,7 +1865,7 @@
  :<- [:ens.stateofus/registrar]
  :<- [:account/account]
  (fn [[{:keys [custom-domain? username-candidate] :as ens} registrar {:keys [address public-key]}] _]
-   {:state          (get-in ens [:states username-candidate])
+   {:state          (or (get-in ens [:states username-candidate]) :initial)
     :username       username-candidate
     :custom-domain? (or custom-domain? false)
     :contract       registrar

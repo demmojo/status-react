@@ -277,20 +277,21 @@
     :action-fn           #(re-frame/dispatch [:navigate-to :contacts-list])}])
 
 (defn- ens-item [name {:keys [registrar] :as props}]
-  [list.views/big-list-item
-   (let [enabled? (not (nil? registrar))]
-     (merge
-      {:text                (or name (i18n/label :t/ens-usernames))
-       :subtext             (if enabled?
-                              (if name (i18n/label :t/ens-your-your-name) (i18n/label :t/ens-usernames-details))
-                              (i18n/label :t/ens-network-restriction))
-       :icon                :main-icons/username
-       :accessibility-label :ens-button}
-      (if enabled?
-        {:action-fn #(re-frame/dispatch [:navigate-to :ens-main props])}
-        {:icon-color    colors/gray
-         :active?       false
-         :hide-chevron? (not enabled?)})))])
+  [react/view {:style {:margin-top 8}}
+   [list.views/big-list-item
+    (let [enabled? (not (nil? registrar))]
+      (merge
+       {:text                (or name (i18n/label :t/ens-usernames))
+        :subtext             (if enabled?
+                               (if name (i18n/label :t/ens-your-your-name) (i18n/label :t/ens-usernames-details))
+                               (i18n/label :t/ens-network-restriction))
+        :icon                :main-icons/username
+        :accessibility-label :ens-button}
+       (if enabled?
+         {:action-fn #(re-frame/dispatch [:navigate-to :ens-main props])}
+         {:icon-color    colors/gray
+          :active?       false
+          :hide-chevron? (not enabled?)})))]])
 
 (defn tribute-to-talk-item
   [opts]
