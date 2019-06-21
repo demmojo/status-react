@@ -87,6 +87,7 @@
                    "js-sha3"
                    "web3-utils"
                    "react-navigation"
+                   "react-native-navigation-twopane"
                    "hi-base32"]
 
  ;; Resoures
