@@ -131,10 +131,9 @@
     [react/view
      [react/nested-text {:style {:font-size 32 :color colors/gray :font-weight "600"}}
       (total-tilde portfolio-value)
-      [{:style {:color colors/black}
-        :accessibility-label :total-value-currency-amount} portfolio-value]
+      [{:style {:color colors/black}} portfolio-value]
       " "
-      [{:accessibility-label :total-value-currency-code} (:code currency)]]
+      (:code currency)]
      [react/text {:style {:color colors/gray}} (i18n/label :t/wallet-total-value)]]))
 
 (views/defview accounts-options []
