@@ -816,6 +816,7 @@
     "link-card": "Link the card and use it to confirm your identity on the platform.",
     "hold-card": "Hold card to the back\n of your phone",
     "turn-nfc-on": "Turn NFC on to continue",
+    "open-nfc-settings": "Open NFC settings",
     "go-to-settings": "Go to Settings...",
     "card-is-empty": "Card is empty",
     "card-is-blank": "This card is blank",
@@ -836,10 +837,8 @@
     "puk-code-explanation": "If you forget your PIN or enter it incorrectly 3 times, you'll need this code to unlock your card.",
     "pair-code": "Pair code",
     "pair-code-explanation": "Pairs card to a different device with the same Status account on it.",
-    "secret-keys-confirmation-title": "Did you write them down?",
-    "secret-keys-confirmation-text": "Record these now because you won't see this screen again",
-    "secret-keys-confirmation-confirm": "GOT IT",
-    "secret-keys-confirmation-cancel": "SEE IT AGAIN",
+    "secret-keys-confirmation-title": "Written the codes down?",
+    "secret-keys-confirmation-text": "You will need them to continue to use\n your Keycard in case you ever loose\n your phone.",
     "completing-card-setup": "Completing card setup",
     "generating-mnemonic": "Generating mnemonic phrase",
     "next-step-generating-mnemonic": "Next step is generating mnemonic phrase for your card",
@@ -1165,5 +1164,11 @@
     "keycard-onboarding-finishing-header": "Finishing up",
     "connection-with-the-card-lost": "Connection with the card\n has been lost",
     "connection-with-the-card-lost-text": "To resume the setup hold the card to\n the back of your phone and maintain\n card to phone contact",
-    "cancel-keycard-setup": "Cancel Keycard setup"
+    "cancel-keycard-setup": "Cancel Keycard setup",
+    "keycard-onboarding-recovery-phrase-header": "Backup “Seed” phrase",
+    "keycard-onboarding-recovery-phrase-text": "For your eyes only. This is the magical seed\n used to generate your key.",
+    "keycard-onboarding-recovery-phrase-description": "With this Seed phrase you can always get\n your key back. Write the Seed phrase down.\n Keep it safe, offline, and separate from this\n device.",
+    "keycard-recovery-phrase-confirmation-title": "Written the Seed phrase down?",
+    "keycard-recovery-phrase-confirmation-text": "You cannot do this later. Without the Seed phrase you will not be able to access your key or any assets associated with it if you loose your device.",
+    "keycard-recovery-phrase-confirm-header": "Confirm “Seed” phrase"
 }

@@ -1,4 +1,5 @@
 (ns status-im.ui.screens.keycard.onboarding.views
+  (:require-macros [status-im.utils.views :refer [defview letsubs]])
   (:require [status-im.ui.components.react :as react]
             [status-im.ui.screens.keycard.onboarding.styles :as styles]
             [status-im.ui.components.toolbar.view :as toolbar]
@@ -8,7 +9,8 @@
             [re-frame.core :as re-frame]
             [status-im.react-native.resources :as resources]
             [status-im.ui.components.common.common :as components.common]
-            [status-im.ui.components.styles :as components.styles]))
+            [status-im.ui.components.styles :as components.styles]
+            [status-im.ui.components.text-input.view :as text-input]))
 
 (defn intro []
   [react/view styles/container
@@ -129,93 +131,94 @@
                    :style       {:width  160
                                  :height 170}}]]]])
 
-(defn puk-code []
-  [react/view styles/container
-   [toolbar/toolbar
-    {:transparent? true
-     :style        {:margin-top 32}}
-    [toolbar/nav-text
-     {:handler #(re-frame/dispatch [:keycard.onboarding.puk-code.ui/cancel-pressed])
-      :style   {:padding-left 21}}
-     (i18n/label :t/cancel)]
-    [react/text {:style {:color colors/gray}}
-     "Step 2 of 3"]]
-   [react/view {:flex            1
-                :flex-direction  :column
-                :justify-content :space-between
-                :align-items     :center}
-    [react/view {:flex-direction :column
-                 :align-items    :center}
-     [react/view {:margin-top 16}
-      [react/text {:number-of-lines 2
-                   :style           {:typography :header
-                                     :text-align :center}}
-       (i18n/label :t/keycard-onboarding-puk-code-header)]]
-     [react/view {:margin-top 32
-                  :width      "85%"}
-      [react/view {:justify-content :center
-                   :flex-direction  :row}
-       [react/view {:width             "100%"
-                    :margin-horizontal 16
-                    :height            108
-                    :align-items       :center
-                    :justify-content   :space-between
-                    :flex-direction    :column
-                    :background-color  colors/gray-lighter
-                    :border-radius     8}
+(defview puk-code []
+  (letsubs [secrets [:hardwallet-secrets]]
+    [react/view styles/container
+     [toolbar/toolbar
+      {:transparent? true
+       :style        {:margin-top 32}}
+      [toolbar/nav-text
+       {:handler #(re-frame/dispatch [:keycard.onboarding.puk-code.ui/cancel-pressed])
+        :style   {:padding-left 21}}
+       (i18n/label :t/cancel)]
+      [react/text {:style {:color colors/gray}}
+       "Step 2 of 3"]]
+     [react/view {:flex            1
+                  :flex-direction  :column
+                  :justify-content :space-between
+                  :align-items     :center}
+      [react/view {:flex-direction :column
+                   :align-items    :center}
+       [react/view {:margin-top 16}
+        [react/text {:number-of-lines 2
+                     :style           {:typography :header
+                                       :text-align :center}}
+         (i18n/label :t/keycard-onboarding-puk-code-header)]]
+       [react/view {:margin-top 32
+                    :width      "85%"}
         [react/view {:justify-content :center
-                     :flex            1
-                     :margin-top      10}
-         [react/text {:style {:color      colors/gray
-                              :text-align :center}}
-          (i18n/label :t/puk-code)]]
-        [react/view {:justify-content :flex-start
-                     :flex            1}
-         [react/text {:style {:typography :header
-                              :text-align :center
-                              :color      colors/blue}}
-          "123456"]]]]
-      [react/view {:margin-top 16}
-       [react/text {:style           {:color colors/gray}
-                    :number-of-lines 3}
-        (i18n/label :t/puk-code-explanation)]]
-      [react/view {:justify-content :center
-                   :margin-top      32
-                   :flex-direction  :row}
-       [react/view {:width             "100%"
-                    :margin-horizontal 16
-                    :height            108
-                    :align-items       :center
-                    :justify-content   :space-between
-                    :flex-direction    :column
-                    :background-color  colors/gray-lighter
-                    :border-radius     8}
+                     :flex-direction  :row}
+         [react/view {:width             "100%"
+                      :margin-horizontal 16
+                      :height            108
+                      :align-items       :center
+                      :justify-content   :space-between
+                      :flex-direction    :column
+                      :background-color  colors/gray-lighter
+                      :border-radius     8}
+          [react/view {:justify-content :center
+                       :flex            1
+                       :margin-top      10}
+           [react/text {:style {:color      colors/gray
+                                :text-align :center}}
+            (i18n/label :t/puk-code)]]
+          [react/view {:justify-content :flex-start
+                       :flex            1}
+           [react/text {:style {:typography :header
+                                :text-align :center
+                                :color      colors/blue}}
+            (:puk secrets)]]]]
+        [react/view {:margin-top 16}
+         [react/text {:style           {:color colors/gray}
+                      :number-of-lines 3}
+          (i18n/label :t/puk-code-explanation)]]
         [react/view {:justify-content :center
-                     :flex            1
-                     :margin-top      10}
-         [react/text {:style {:color      colors/gray
-                              :text-align :center}}
-          (i18n/label :t/puk-code)]]
-        [react/view {:justify-content :flex-start
-                     :flex            1}
-         [react/text {:style {:typography :header
-                              :text-align :center
-                              :color      colors/blue}}
-          "abcdfg"]]]]
-      [react/view {:margin-top 16}
-       [react/text {:style           {:color colors/gray}
-                    :number-of-lines 2}
-        (i18n/label :t/pair-code-explanation)]]]]
-    [react/view {:flex-direction  :row
-                 :justify-content :space-between
-                 :align-items     :center
-                 :width           "100%"
-                 :height          86}
-     [react/view components.styles/flex]
-     [react/view {:margin-right 20}
-      [components.common/bottom-button
-       {:on-press #(re-frame/dispatch [:keycard.onboarding.puk-code.ui/next-pressed])
-        :forward? true}]]]]])
+                     :margin-top      32
+                     :flex-direction  :row}
+         [react/view {:width             "100%"
+                      :margin-horizontal 16
+                      :height            108
+                      :align-items       :center
+                      :justify-content   :space-between
+                      :flex-direction    :column
+                      :background-color  colors/gray-lighter
+                      :border-radius     8}
+          [react/view {:justify-content :center
+                       :flex            1
+                       :margin-top      10}
+           [react/text {:style {:color      colors/gray
+                                :text-align :center}}
+            (i18n/label :t/pair-code)]]
+          [react/view {:justify-content :flex-start
+                       :flex            1}
+           [react/text {:style {:typography :header
+                                :text-align :center
+                                :color      colors/blue}}
+            (:password secrets)]]]]
+        [react/view {:margin-top 16}
+         [react/text {:style           {:color colors/gray}
+                      :number-of-lines 2}
+          (i18n/label :t/pair-code-explanation)]]]]
+      [react/view {:flex-direction  :row
+                   :justify-content :space-between
+                   :align-items     :center
+                   :width           "100%"
+                   :height          86}
+       [react/view components.styles/flex]
+       [react/view {:margin-right 20}
+        [components.common/bottom-button
+         {:on-press #(re-frame/dispatch [:keycard.onboarding.puk-code.ui/next-pressed])
+          :forward? true}]]]]]))
 
 (defn- loading [title-label]
   [react/view styles/container
@@ -280,7 +283,7 @@
                 :justify-content  :space-between
                 :align-items      :center}
     [react/view {:margin-top 32}
-     [react/text {:style           {:typography :title
+     [react/text {:style           {:typography :title-bold
                                     :text-align :center}
                   :number-of-lines 2}
       (i18n/label :t/connection-with-the-card-lost)]
@@ -296,7 +299,172 @@
                                  :height 200}}]]
     [react/view {:margin-bottom 43}
      [react/touchable-highlight
-      {:on-press #()}
+      {:on-press #(re-frame/dispatch [:keycard.onboarding.connection-lost.ui/cancel-setup-pressed])}
       [react/text {:style {:color      colors/red
                            :text-align :center}}
        (i18n/label :t/cancel-keycard-setup)]]]]])
+
+(defn nfc-on []
+  [react/view styles/container
+   [toolbar/toolbar
+    {:transparent? true
+     :style        {:margin-top 32}}
+    toolbar/default-nav-back
+    nil]
+   [react/view {:flex            1
+                :flex-direction  :column
+                :justify-content :space-between
+                :align-items     :center}
+    [react/view {:flex-direction :column
+                 :align-items    :center}
+     [react/view {:margin-top 16}
+      [react/text {:style {:typography :header}}
+       (i18n/label :t/turn-nfc-on)]]]
+    [react/view
+     [react/view {:align-items     :center
+                  :justify-content :center}
+      [react/image {:source (resources/get-image :keycard-nfc-on)
+                    :style  {:width  170
+                             :height 170}}]]]
+    [react/view
+     [react/touchable-highlight
+      {:on-press #(re-frame/dispatch [:keycard.onboarding.nfc-on/open-nfc-settings-pressed])}
+      [react/text {:style {:font-size     15
+                           :line-height   22
+                           :color         colors/blue
+                           :text-align    :center
+                           :margin-bottom 30}}
+       (i18n/label :t/open-nfc-settings)]]]]])
+
+(def pin status-im.ui.screens.hardwallet.pin.views/create-pin)
+
+(defview recovery-phrase []
+  (letsubs [mnemonic [:hardwallet-mnemonic]]
+    [react/view styles/container
+     [toolbar/toolbar
+      {:transparent? true
+       :style        {:margin-top 32}}
+      [toolbar/nav-text
+       {:handler #(re-frame/dispatch [:keycard.onboarding.recovery-phrase.ui/cancel-pressed])
+        :style   {:padding-left 21}}
+       (i18n/label :t/cancel)]
+      [react/text {:style {:color colors/gray}}
+       "Step 3 of 3"]]
+     [react/view {:flex            1
+                  :flex-direction  :column
+                  :justify-content :space-between
+                  :align-items     :center}
+      [react/view {:flex-direction :column
+                   :align-items    :center}
+       [react/view {:margin-top 16}
+        [react/text {:number-of-lines 2
+                     :style           {:typography :header
+                                       :text-align :center}}
+         (i18n/label :t/keycard-onboarding-recovery-phrase-header)]]
+       [react/view {:margin-top     16
+                    :width          "85%"
+                    :flex-direction :column
+                    :align-items    :center}
+        [react/text {:number-of-lines 2
+                     :style           {:text-align :center
+                                       :color      colors/gray}}
+         (i18n/label :t/keycard-onboarding-recovery-phrase-text)]
+        [react/view
+         [react/touchable-highlight
+          {:on-press #(re-frame/dispatch [:keycard.onboarding.recovery-phrase.ui/learn-more-pressed])}
+          [react/text {:style {:color colors/blue}}
+           (i18n/label :t/learn-more)]]]]]
+
+      [react/view
+       [react/view
+        (for [[i row] mnemonic]
+          ^{:key (str "row" i)}
+          [react/view {:flex-direction :row
+                       :margin-top     12}
+           (for [[i word] row]
+             ^{:key (str "word" i)}
+             [react/view {:flex-direction     :row
+                          :background-color   colors/gray-lighter
+                          :padding-horizontal 14
+                          :padding-vertical   7
+                          :border-radius      48
+                          :margin-left        12}
+              [react/text {:style {:color colors/gray}}
+               (str (inc i) ". ")]
+              [react/text
+               word]])])]
+       [react/view {:margin-top 24}
+        [react/text {:number-of-lines 4
+                     :style           {:text-align :center}}
+         (i18n/label :t/keycard-onboarding-recovery-phrase-description)]]]
+      [react/view {:flex-direction  :row
+                   :justify-content :space-between
+                   :align-items     :center
+                   :width           "100%"
+                   :height          86}
+       [react/view components.styles/flex]
+       [react/view {:margin-right 20}
+        [components.common/bottom-button
+         {:on-press #(re-frame/dispatch [:keycard.onboarding.recovery-phrase.ui/next-pressed])
+          :label    (i18n/label :t/confirm)
+          :forward? true}]]]]]))
+
+(defview recovery-phrase-confirm-word []
+  (letsubs [word [:hardwallet-recovery-phrase-word]
+            input-word [:hardwallet-recovery-phrase-input-word]
+            error [:hardwallet-recovery-phrase-confirm-error]]
+    (let [{:keys [word idx]} word]
+      [react/view styles/container
+       [toolbar/toolbar
+        {:transparent? true
+         :style        {:margin-top 32}}
+        [toolbar/nav-text
+         {:handler #(re-frame/dispatch [:keycard.onboarding.recovery-phrase-confirm-word.ui/cancel-pressed])
+          :style   {:padding-left 21}}
+         (i18n/label :t/cancel)]
+        [react/text {:style {:color colors/gray}}
+         "Step 3 of 3"]]
+       [react/view {:flex            1
+                    :flex-direction  :column
+                    :justify-content :space-between
+                    :align-items     :center}
+        [react/view {:flex-direction :column
+                     :align-items    :center}
+         [react/view {:margin-top 16}
+          [react/text {:number-of-lines 2
+                       :style           {:typography :header
+                                         :text-align :center}}
+           (i18n/label :t/keycard-recovery-phrase-confirm-header)]]
+         [react/view {:margin-top  16
+                      :align-items :center}
+          [react/text {:style {:typography :header
+                               :color      colors/gray
+                               :text-align :center}}
+           (i18n/label :t/word-n {:number (inc idx)})]]]
+        [react/view
+         [text-input/text-input-with-label
+          {:on-change-text    #(re-frame/dispatch [:keycard.onboarding.recovery-phrase-confirm-word.ui/input-changed %])
+           :auto-focus        true
+           :on-submit-editing #(re-frame/dispatch [:keycard.onboarding.recovery-phrase-confirm-word.ui/input-submitted])
+           :error             error
+           :placeholder       nil
+           :container         {:background-color :white}
+           :style             {:background-color :white
+                               :height           24
+                               :typography       :header}}]]
+        [react/view {:flex-direction  :row
+                     :justify-content :space-between
+                     :align-items     :center
+                     :width           "100%"
+                     :height          86}
+         [react/view {:margin-left 20}
+          [components.common/bottom-button
+           {:on-press #(re-frame/dispatch [:keycard.onboarding.recovery-phrase-confirm-word.ui/back-pressed])
+            :back?    true
+            :label    (i18n/label :t/back)}]]
+         [react/view {:margin-right 20}
+          [components.common/bottom-button
+           {:on-press  #(re-frame/dispatch [:keycard.onboarding.recovery-phrase-confirm-word.ui/next-pressed])
+            :label     (i18n/label :t/next)
+            :disabled? (empty? input-word)
+            :forward?  true}]]]]])))
