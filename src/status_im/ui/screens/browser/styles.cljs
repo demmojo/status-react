@@ -96,7 +96,7 @@
 (defn permissions-panel [bottom-anim-value]
   {:height                  354
    :position                :absolute
-   :bottom                  bottom-anim-value
+   :transform               [{:translateY bottom-anim-value}]
    :right                   0
    :left                    0
    :align-items             :center
